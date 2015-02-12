@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html ng-app="ProviderApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>Retirement Income Dashboard Page</title>
+
+<link rel="stylesheet" href="css/foundation.css" />
+<link type="text/css" media="screen" rel="stylesheet" href="css/responsive-tables.css" />
+<link rel="stylesheet" href="css/ui-grid.css" />
+
+<script src="js/vendor/modernizr.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/responsive-tables.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-resource.js"></script>
+<script src="js/ui-grid-unstable.js"></script>
+
+<script>
+var ProviderApp = angular.module('ProviderApp', ['ui.grid','ngResource']);  // note you can add multiple injectors ['ui.grid','blah']
+
+ProviderApp.controller('TwitterCtrl',function ($scope, $resource) {
+
+	// Needs Oauth authentication
+	
+	$scope.twitter = $resource('https://api.twitter.com/1.1/search/:action',		
+			{action:'tweets.json', q:'angularjs'},
+			{get:{method:'JSONP'}});
+	
+	 $scope.twitterResult = $scope.twitter.get();
+	 
+	// alert($scope.twitterResult);
+	 
+});	
+
+
+//	var ProviderApp = angular.module('ProviderApp', []);
+
+ProviderApp.controller('SearchCtrl',function ($scope, $http) {
+	$scope.url = 'http://localhost:8080/FCARest/rest/sipp/rsssearch'; 
+	//$http.get('http://localhost:8080/FCARest/rest/sipp/rsssearch/*').success(function(data)  {
+	//	$scope.article = data.article;
+	//});
+	
+	// The url of our search // The function that will be executed on button click (ng-click="search()") 
+	$scope.search = function() { 
+	// Create the http post request // the data holds the keywords // The request is a JSON request. 
+		// $http.post($scope.url, { "data" : $scope.keywords}). 
+		$http.get($scope.url + '/' + $scope.keywords). 
+		success(function(data) { 
+			// set model result to data contents - lookup angularjs instructions on models
+			$scope.results = data.article; 
+			})	
+	}; 
+	});	 
+
+
+// 'http://ec2-54-72-253-133.eu-west-1.compute.amazonaws.com:8080/FCARest/rest/sipp/provider')
+
+ProviderApp.controller('ProviderCtrl',function ($scope, $http) {
+	
+	$http.get('http://localhost:8080/FCARest/rest/sipp/provider').success(function(data)  {
+				$scope.provider = data.provider;
+			});
+	
+		$scope.sortField = 'providerName';
+		$scope.reverse = false;
+	});	 
+
+//ProviderApp.controller('AdvertCtrl', ['$scope', '$http', 'uiGrisConstants',function ($scope, $http, $uiGridConstants) {
+
+ProviderApp.controller('AdvertCtrl',function ($scope, $http) {	
+	
+	$http.get('http://localhost:8080/FCARest/rest/sipp/adspend').success(function(data)  {
+				$scope.advertiser = data.advertiser;
+				// $scope.adGridOptions.data = data;
+			});
+	
+		$scope.sortField = 'adSpend';
+		$scope.reverse = false;
+		
+	//	$scope.adGridOptions = {
+				
+	//	}
+		
+	});	 
+	
+ProviderApp.controller('ArticleCtrl',function ($scope, $http) {
+	$http.get('http://localhost:8080/FCARest/rest/sipp/article').success(function(data)  {
+				$scope.article = data.article;
+			});
+	
+		$scope.sortField = 'articlePubDate';
+		$scope.reverse = false;
+	});	 
+	
+ 
+</script>
+
+</head>
+<body>
+
+	<div class="contain-to-grid sticky">
+		<nav class ="top-bar" data-topbar>
+			<ul class="title-area">
+				<li class="name">
+					<h1><a href="#">Retirement Income  - SIPP</a></h1>
+				</li>
+				<li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+				
+			</ul>
+			<section class="top-bar-section">
+				<ul class="right">
+					<li><a href="#">About</a></li>	
+					
+					<li class="has-dropdown"><a href="#">Market</a>
+						<ul class="dropdown">
+							<li><a href="#">SIPP</a></li>
+							<li><a href="#">Coventional Annuity</a></li>	
+							<li><a href="#">Income Drawdown</a></li>		
+						</ul>
+					</li>	
+					
+					<li class="has-dropdown"><a href="#">Sector</a>
+						<ul class="dropdown">
+							<li><a href="#">Credit</a></li>
+							<li><a href="#">Retirement</a></li>	
+							<li><a href="#">Blah</a></li>		
+						</ul>					
+					</li>	
+					
+					<li class="has-form">
+						<div class="row collapse" >
+							<div class="large-8 small-9 columns">
+								<input type="text" placeholder="Search Site">
+							</div>
+							<div class="large-4 small-3 columns" >
+								<button type="submit" class="alert button expand">Search</button>
+							</div>
+						</div>
+						
+					</li>
+				</ul>
+			</section>
+		</nav>
+	</div>
+ 
+  <div class="row">
+		<div class="large-4 medium-4 small-4 columns">
+
+			<table class="callout panel" style="margin:0; padding:0;border:none">
+				<tr>
+					<th>Products & Providers</th>
+				</tr>
+				<tr style="margin:0; padding:0;border:none" class="callout panel">
+					<td>
+							<input ng-model="query" type="text" placeholder="Filter Providers" >
+					</td>
+					<td>
+							<a href="#" class="button">Filter</a>					
+					</td>
+				</tr>
+			</table>
+
+			<table ng-controller="ProviderCtrl" role="grid" class="responsive panel">
+				<tr>
+					<th><a href="" ng-click="sortField= 'productName'; reverse= !reverse">Product</a></th>
+					<th><a href="" ng-click="sortField= 'providerName'; reverse= !reverse">ProviderName</a></th>
+				</tr>
+				<tr
+					ng-repeat="providr in provider | filter:query | orderBy:sortField:reverse">
+					<td>{{providr.productName}}</td>
+					<td>{{providr.providerName}}</td>
+			</table>
+
+		</div>
+		
+		<div ng-controller="SearchCtrl" class="large-4 medium-4 small-4 columns">
+
+			<table class="callout panel" style="margin:0; padding:0;border:none">
+				<tr>
+					<th>Media</th>
+				</tr>
+				<tr style="margin:0; padding:0;border:none" class="callout panel">
+					<td>
+							<input ng-model="keywords" type="text" placeholder="Type Keyword Search" >
+					</td>
+					<td>
+							<button type="submit" ng-click="search()" class="alert button expand">RSS Search</button>				
+					</td>
+				</tr>				
+				<tr style="margin:0; padding:0;border:none" class="callout panel">
+					<td>
+							<input ng-model="query" type="text" placeholder="Filter Articles" >
+					</td>
+					<td>
+							<a href="#" class="button">Filter</a>					
+					</td>
+				</tr>
+			</table>
+
+			<table  role="grid" class="responsive panel">
+				<tr>
+					<th><a href="" ng-click="sortField= 'articlePubDate'; reverse= !reverse">Published</a></th>
+					<th><a href="" ng-click="sortField= 'articleTitle'; reverse= !reverse">Title</a></th>
+				</tr>
+				<tr
+					 ng-repeat="articl in results | filter:query | orderBy:sortField:reverse">
+					<td>{{articl.articlePubDate}}</td>
+					<td><a href="{{articl.articleLink}}" title="{{articl.articleDescription}}">{{articl.articleTitle}}</a></td>
+			</table>
+			
+			<table ng-controller="TwitterCtrl" role="grid" class="responsive panel">
+				<tr>
+					<th><a href="">Tweets</a></th>
+				</tr>
+				<tr
+					 ng-repeat="tweet in twitterResult.results">
+					<td>{{tweet.text}}</td>
+			</table>
+
+		</div>
+		
+		<div ng-controller="AdvertCtrl" class="large-4 medium-4 small-4 columns">
+
+			<table class="callout panel" style="margin:0; padding:0;border:none">
+				<tr>
+					<th>Advertising Spend Rolling Year</th>
+				</tr>
+			</table>
+			
+			<div ui-grid="{ data: advertiser }" class="grid"></div>
+<!-- 			<div ui-grid="adGridOptions" class="grid"></div> -->
+
+
+		</div>
+		
+		
+		
+		
+	</div>		
+
+</body>
+</html>
