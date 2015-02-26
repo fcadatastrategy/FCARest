@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+.TableCell{
+	font-style: normal;
+	font-size: small;
+	word-wrap: break-word;
+	color: #000000;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.nextpageButton{
+	background-image: url(../Images/forward.jpg);
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 20px 20px;
+	margin: 0 0 0 ;
+	border-style: none;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+.backpageButton{
+	background-image: url(../Images/back.jpg);
+	background-repeat: no-repeat;
+	background-position: top;
+	background-size: 20px 20px;
+	margin: 0 0 0 ;
+	border-style: none;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+.TableHeader{
+	font-style: normal;
+	color: #000000;
+	font-size: small;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.PageTable {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	top: 0px;
+	max-height: 30px;
+}
+
+.searchtext {
+	font-style: normal;
+	color: #FF0000;
+	font-size: small;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.searchbutton {
+	font-size: small;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	max-height: 40px;
+}

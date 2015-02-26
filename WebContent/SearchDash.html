@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html ng-app="ProviderApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>Media Dashboard Page</title>
+
+<link rel="stylesheet" href="css/foundation.css" />
+<link type="text/css" media="screen" rel="stylesheet" href="css/responsive-tables.css" />
+<link rel="stylesheet" href="css/ui-grid.css" />
+<link rel="stylesheet" href="css/customdashboard.css" />
+
+<script src="js/vendor/modernizr.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/responsive-tables.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-resource.js"></script>
+<script src="js/ui-grid-unstable.js"></script>
+<script src="js/SearchDash.js"></script>
+
+</head>
+
+<body>
+
+	<div class="contain-to-grid sticky">
+		<nav class ="top-bar" data-topbar>
+			<ul class="title-area">
+				<li class="name">
+					<h1><a href="#">Retirement Income  - Media Search</a></h1>
+				</li>
+				<li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+				
+			</ul>
+			<section class="top-bar-section">
+				<ul class="right">
+					<li><a href="#">About</a></li>	
+					
+					<li class="has-dropdown"><a href="#">Market</a>
+						<ul class="dropdown">
+							<li><a href="#">SIPP</a></li>
+							<li><a href="#">Coventional Annuity</a></li>	
+							<li><a href="#">Income Drawdown</a></li>		
+						</ul>
+					</li>	
+					
+					<li class="has-dropdown"><a href="#">Sector</a>
+						<ul class="dropdown">
+							<li><a href="#">Credit</a></li>
+							<li><a href="#">Retirement</a></li>	
+							<li><a href="#">Blah</a></li>		
+						</ul>					
+					</li>	
+					
+					<li class="has-form">
+						<div class="row collapse" >
+							<div class="large-8 small-9 columns">
+								<input type="text" placeholder="Search Site">
+							</div>
+							<div class="large-4 small-3 columns" >
+								<button type="submit" class="alert button expand">Search</button>
+							</div>
+						</div>
+						
+					</li>
+				</ul>
+			</section>
+		</nav>
+	</div>
+ 
+  <div class="row">
+  		<!--  Market View -->	 
+		<div ng-controller="MarketCtrl" class="large-6 medium-6 small-6 columns">
+			<table class="callout panel" style="margin:0; padding:0;border:none;width:100%">
+				<tr>
+					<th>Market View</th>
+					<th class="searchtext">Keywords (annuity,retirement,drawdown,SIPP)</th>
+				</tr>
+			</table>
+			<div id="marketgrid" ui-grid="gridOptions" class="grid" ui-grid-resize-columns ui-grid-pagination></div>
+			<table class="PageTable">
+				<tr class="PageTable">
+					<td class="TableHeader">
+						Current Page: {{gridApi.pagination.getPage()}} of {{gridApi.pagination.getTotalPages()}}
+					</td>
+					<td>
+						<button type="button" class="backpageButton" ng-click="gridApi.pagination.previousPage()"></button>
+						<button type="button" class="nextpageButton" ng-click="gridApi.pagination.nextPage()"></button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<!--  Product Provider View -->	
+		<div ng-controller="ProdProviderCtrl" class="large-6 medium-6 small-6 columns">
+
+			<table class="callout panel" style="margin:0; padding:0;border:none;width:100%">
+				<tr>
+					<th>Product & Provider View</th>
+					<th class="searchtext">6 New Provider Articles, 0 Product Articles</th>
+				</tr>				
+			</table>
+
+			<div id="providergrid" ui-grid="gridOptions" class="grid" ui-grid-resize-columns ui-grid-pagination></div>
+			<table class="PageTable">
+				<tr class="PageTable">
+					<td class="TableHeader">
+						Current Page: {{gridApi.pagination.getPage()}} of {{gridApi.pagination.getTotalPages()}}
+					</td>
+					<td>
+						<button type="button" class="backpageButton" ng-click="gridApi.pagination.previousPage()"></button>
+						<button type="button" class="nextpageButton" ng-click="gridApi.pagination.nextPage()"></button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		
+	</div>	<!--  First Foundation Row ends -->	 
+
+  <div class="row">
+		<div class="large-6 medium-6 small-6 columns">
+
+			<table class="callout panel" style="margin:0; padding:0;border:none;width:100%">
+				<tr>
+					<th>Input View</th>
+				</tr>
+			</table>
+
+			<table ng-controller="InputCtrl" role="grid" class="responsive panel" style="margin:0; padding:0;border:none;width:100%">
+				<tr>
+					<th><a class="TableHeader" href="" ng-click="sortField= 'productName'; reverse= !reverse">Media Source</a></th>
+					<th><a class="TableHeader" href="" ng-click="sortField= 'providerName'; reverse= !reverse">New Articles</a></th>
+					<th><a class="TableHeader" href="" ng-click="sortField= 'providerName'; reverse= !reverse">New Market Specific Articles</a></th>
+				</tr>
+				<tr
+					ng-repeat="providr in provider | filter:query | orderBy:sortField:reverse">
+					<td>{{providr.productName}}</td>
+					<td>{{providr.providerName}}</td>
+			</table>
+
+		</div>
+		
+		<div ng-controller="SearchCtrl" class="large-6 medium-6 small-6 columns">
+
+			<table class="callout panel" style="margin:0; padding:0;border:none;width:100%">
+				<tr>
+					<th>Search Media</th>
+				</tr>
+				<tr class="callout panel">
+					<td>
+							<input ng-model="keywords" type="text" placeholder="Type Keyword Search" >
+					</td>
+					<td>
+							<button type="button" ng-click="search()" class="alert searchbutton">RSS Search</button>				
+					</td>
+				</tr>				
+			</table>
+
+			<div class="well" ng-hide="hideGrid">
+			<div id="searchgrid" ui-grid="gridOptions" class="grid" ui-grid-resize-columns ui-grid-pagination></div>
+			<table class="PageTable">
+				<tr class="PageTable">
+					<td class="TableHeader">
+						Current Page: {{gridApi.pagination.getPage()}} of {{gridApi.pagination.getTotalPages()}}
+					</td>
+					<td>
+						<button type="button" class="backpageButton" ng-click="gridApi.pagination.previousPage()"></button>
+						<button type="button" class="nextpageButton" ng-click="gridApi.pagination.nextPage()"></button>
+					</td>
+				</tr>
+			</table>
+
+			</div>
+			</div>
+		
+		
+	</div>	<!--  Second Foundation Row ends -->	 
+
+</body>
+</html>

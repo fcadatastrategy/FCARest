@@ -1,5 +1,7 @@
 package com.fca.service;
 
+import java.sql.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -8,7 +10,7 @@ public class Article {
 
     private String ArticleTitle;
     private String ArticleDescription;
-    private String ArticlePubdate;
+    private Date ArticlePubdate;
     private String ArticleLink;
 
 	public Article() {
@@ -30,11 +32,11 @@ public class Article {
 		this.ArticleDescription = ArticleDescription;
 	}
 	
-	public String getArticlePubDate() {
+	public Date getArticlePubDate() {
 		return ArticlePubdate;
 	}
 
-	public void setArticlePubDate(String ArticlePubdate) {
+	public void setArticlePubDate(Date ArticlePubdate) {
 		this.ArticlePubdate = ArticlePubdate;
 	}	
 	

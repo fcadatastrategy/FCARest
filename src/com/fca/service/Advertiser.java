@@ -1,9 +1,11 @@
 package com.fca.service;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonRootName;
 
 
 @XmlRootElement
+@JsonRootName(value= "advertiser")
 public class Advertiser {
 
     private double AdSpend;

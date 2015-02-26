@@ -48,7 +48,7 @@ ProviderApp.controller('SearchCtrl',function ($scope, $http) {
 		$http.get($scope.url + '/' + $scope.keywords). 
 		success(function(data) { 
 			// set model result to data contents - lookup angularjs instructions on models
-			$scope.results = data.article; 
+			$scope.results = data; 
 			})	
 	}; 
 	});	 
@@ -59,7 +59,7 @@ ProviderApp.controller('SearchCtrl',function ($scope, $http) {
 ProviderApp.controller('ProviderCtrl',function ($scope, $http) {
 	
 	$http.get('http://localhost:8080/FCARest/rest/sipp/provider').success(function(data)  {
-				$scope.provider = data.provider;
+				$scope.provider = data; //.provider; removed as no longer required with POJO mapping in place.
 			});
 	
 		$scope.sortField = 'providerName';
@@ -71,7 +71,7 @@ ProviderApp.controller('ProviderCtrl',function ($scope, $http) {
 ProviderApp.controller('AdvertCtrl',function ($scope, $http) {	
 	
 	$http.get('http://localhost:8080/FCARest/rest/sipp/adspend').success(function(data)  {
-				$scope.advertiser = data.advertiser;
+				$scope.advertiser = data;
 				// $scope.adGridOptions.data = data;
 			});
 	
@@ -229,8 +229,6 @@ ProviderApp.controller('ArticleCtrl',function ($scope, $http) {
 			</table>
 			
 			<div ui-grid="{ data: advertiser }" class="grid"></div>
-<!-- 			<div ui-grid="adGridOptions" class="grid"></div> -->
-
 
 		</div>
 		

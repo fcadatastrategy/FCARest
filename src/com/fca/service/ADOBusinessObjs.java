@@ -98,7 +98,7 @@ public class ADOBusinessObjs {
     public List<Article> findKeywordArticles(String srchstr) {
         List<Article> list = new ArrayList<Article>();
         Connection c = null;
-    	String sql = "SELECT title, description, to_char(pub_date) pubdate, link link " +
+    	String sql = "SELECT title, description, pub_date pubdate, link link " +
 			"FROM FCA_DS_RPT.R_RSS_FEED  " + 
     	    "WHERE UPPER(title) LIKE '%" + srchstr.toUpperCase() + "%' ";
         
@@ -122,7 +122,7 @@ public class ADOBusinessObjs {
     	Article article = new Article();
     	article.setArticleTitle(rs.getString("title"));
     	article.setArticleDescription(rs.getString("description"));
-    	article.setArticlePubDate(rs.getString("pubdate"));
+    	article.setArticlePubDate(rs.getDate("pubdate"));
     	article.setArticleLink(rs.getString("link"));
     	return article;
     }
