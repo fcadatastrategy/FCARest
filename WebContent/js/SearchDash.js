@@ -6,8 +6,8 @@ ProviderApp.controller('ProdProviderCtrl',function ($scope, $http, uiGridConstan
 	 $scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Title'}, 
 	                  {field: 'articlePubDate', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Date', enableFiltering:false, width: 80, sort: {direction: uiGridConstants.DESC, priority: 1}},
 	                  {field: 'articleLink', displayName: '', enableFiltering:false, cellClass: 'LinkCell', headerClass: 'TableHeader', width: 20, 
-		 					cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{COL_FIELD}}"><img src="Images/link.jpg" width="20" height="20"></img></a></div>  '},
-	                  {field: 'articleDescription', displayName: '', enableFiltering:false, cellClass: 'ViewCell', headerClass: 'TableHeader', width: 40, 
+		 					cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{COL_FIELD}}" target="_blank"><img src="Images/link.jpg" width="20" height="20"></img></a></div>  '},
+	                  {field: 'articleDescription', displayName: '', enableFiltering:false, cellClass: 'ViewCell', headerClass: 'TableHeader', width: 20, 
 		 					cellTemplate: '<img src="Images/view.jpg" title="{{COL_FIELD}}" width="20" height="20">view</img>  '}
 	                  ];
 	 
@@ -19,6 +19,7 @@ ProviderApp.controller('ProdProviderCtrl',function ($scope, $http, uiGridConstan
 			 enableFiltering: true,
 			 enableHorizontalScrollbar: false,
 			 enableScrollbars: false, 
+			 // rowHeight: 65,
 			 columnDefs: $scope.columns
 	 }
 	 
@@ -29,7 +30,7 @@ ProviderApp.controller('ProdProviderCtrl',function ($scope, $http, uiGridConstan
 			 $scope.gridApi = gridApi;
 	 }
 	 
-	$http.get('http://localhost:8080/FCARest/rest/sipp/rsssearch/SIPP').success(function(data)  {
+	$http.get('/FCARest/rest/sipp/rsssearch/-').success(function(data)  {
 			$scope.gridOptions.data = data; //.provider; removed as no longer required with POJO mapping in place.	
 	});
 });	 
@@ -39,11 +40,11 @@ ProviderApp.controller('ProdProviderCtrl',function ($scope, $http, uiGridConstan
 
 ProviderApp.controller('MarketCtrl',function ($scope, $http, uiGridConstants) {
 	
-		 $scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Title'}, 
+		 $scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', title: 'Hello', displayName: 'Title'}, 
 		                  {field: 'articlePubDate', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Date', enableFiltering:false, width: 80, sort: {direction: uiGridConstants.DESC, priority: 1}},
 		                  {field: 'articleLink', displayName: '', enableFiltering:false, cellClass: 'LinkCell', headerClass: 'TableHeader', width: 20, 
-			 					cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{COL_FIELD}}"><img src="Images/link.jpg" width="20" height="20"></img></a></div>  '},
-		                  {field: 'articleDescription', displayName: '', enableFiltering:false, cellClass: 'ViewCell', headerClass: 'TableHeader', width: 40, 
+			 					cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{COL_FIELD}}"  target="_blank"><img src="Images/link.jpg" width="20" height="20"></img></a></div>  '},
+		                  {field: 'articleDescription', displayName: '', enableFiltering:false, cellClass: 'ViewCell', headerClass: 'TableHeader', width: 20, 
 			 					cellTemplate: '<img src="Images/view.jpg" title="{{COL_FIELD}}" width="20" height="20">view</img>  '}
 		                  ];
 		 
@@ -65,37 +66,35 @@ ProviderApp.controller('MarketCtrl',function ($scope, $http, uiGridConstants) {
 				 $scope.gridApi = gridApi;
 		 }
 		 
-		$http.get('http://localhost:8080/FCARest/rest/sipp/rsssearch/Pension').success(function(data)  {
+		$http.get('/FCARest/rest/sipp/rsssearch/*').success(function(data)  {
 				$scope.gridOptions.data = data; //.provider; removed as no longer required with POJO mapping in place.	
 		});
+		
+		$scope.winopen= function() { $window.open('//facebook.com');};
+		
 	});	 
 
 ProviderApp.controller('InputCtrl',function ($scope, $http) {	
 	
-	$http.get('http://localhost:8080/FCARest/rest/sipp/rsssearch/SIPP').success(function(data)  {
-				$scope.advertiser = data;
-				// $scope.adGridOptions.data = data;
+	$http.get('/FCARest/rest/sipp/articlesum').success(function(data)  {
+				$scope.summary = data;
 			});
 	
-		$scope.sortField = 'adSpend';
-		$scope.reverse = false;
-		
-	//	$scope.adGridOptions = {
-				
-	//	}
+		$scope.sortField = 'marketArticleCount';
+		$scope.reverse = true;
 		
 	});	 
 	
 ProviderApp.controller('SearchCtrl',function ($scope, $http, uiGridConstants) {
 	
-	$scope.url = 'http://localhost:8080/FCARest/rest/sipp/rsssearch'; 
-	$scope.hideGrid = true;
+	$scope.url = '/FCARest/rest/sipp/rsssearch'; 
+	// $scope.hideGrid = true;
 
 	$scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Title'}, 
 	                  {field: 'articlePubDate', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Date', enableFiltering:false, width: 80, sort: {direction: uiGridConstants.DESC, priority: 1}},
 	                  {field: 'articleLink', displayName: '', enableFiltering:false, cellClass: 'LinkCell', headerClass: 'TableHeader', width: 20, 
-		 					cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{COL_FIELD}}"><img src="Images/link.jpg" width="20" height="20"></img></a></div>  '},
-	                  {field: 'articleDescription', displayName: '', enableFiltering:false, cellClass: 'ViewCell', headerClass: 'TableHeader', width: 40, 
+		 					cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{COL_FIELD}}"  target="_blank"><img src="Images/link.jpg" width="20" height="20"></img></a></div>  '},
+	                  {field: 'articleDescription', displayName: '', enableFiltering:false, cellClass: 'ViewCell', headerClass: 'TableHeader', width: 20, 
 		 					cellTemplate: '<img src="Images/view.jpg" title="{{COL_FIELD}}" width="20" height="20">view</img>  '}
 	                  ];
 	

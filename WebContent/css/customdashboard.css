@@ -3,7 +3,10 @@
 .TableCell{
 	font-style: normal;
 	font-size: small;
-	word-wrap: break-word;
+/* 	word-wrap: break-word; */
+	margin: 0;
+	border: 0;
+	padding: 0;
 	color: #000000;
 	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -54,10 +57,28 @@
 	color: #FF0000;
 	font-size: small;
 	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 0;
+	border: 0;
+	padding: 0;
 }
 
 .searchbutton {
 	font-size: small;
 	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	max-height: 40px;
+}
+
+.full-width {
+  max-width: 1400px;
+}
+
+.footer {
+	background-color: #FFFFFF;
+	padding: 1rem 1rem;
+	text-align: center;
+	color: #800040;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: x-small;
 }

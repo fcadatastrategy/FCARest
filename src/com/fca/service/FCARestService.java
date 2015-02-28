@@ -38,10 +38,10 @@ public class FCARestService {
 	}
 	
 	@GET
-	@Path("/article")
+	@Path("/articlesum")
 	@Produces({  MediaType.APPLICATION_JSON })
-	public List<Article> findAllArticles() {
-		return ado.findAllArticles();
+	public List<ArticleSummary> findAllArticleSummary() {
+		return ado.findArticleSummary();
 		
 	}
 	
@@ -51,7 +51,10 @@ public class FCARestService {
 	public List<Article> findKeywordArticles(@PathParam("srchstr") String srchString) {
 		System.out.println("Search String" + srchString);
 		if (srchString.equals("*")) {
-			return ado.findAllArticles();
+			return ado.findAllMarketArticles();
+		}
+		else if (srchString.equals("-")) {
+			return ado.findAllProdProviderArticles();
 		}
 		else {
 			return ado.findKeywordArticles(srchString);
