@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 public class FCARestService {
 
 	ADOBusinessObjs ado = new ADOBusinessObjs();
+	ADOConAnnuityBusObjs adoConAnunuity = new ADOConAnnuityBusObjs();
 		
 	@GET
 	@Path("/provider")
@@ -62,6 +63,13 @@ public class FCARestService {
 
 		
 	}
+	
+	@GET
+	@Path("/providercnt")
+	@Produces({  MediaType.APPLICATION_JSON })
+	public List<ProviderRange> BuildProdProvTimeJSON() {
+		return adoConAnunuity.findAllProviderCnt();
+	}	
 	
 
 }

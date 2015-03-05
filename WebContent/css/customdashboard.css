@@ -82,3 +82,57 @@
 	font-weight: bold;
 	font-size: x-small;
 }
+
+.changesNewImg{
+	background-image: url(../Images/new.jpg);
+	background-repeat: no-repeat;
+	background-position: top;
+	background-size: 20px 20px;
+	margin: 0 0 0 ;
+	border-style: none;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+.changesExitImg{
+	background-image: url(../Images/exit.jpg);
+	background-repeat: no-repeat;
+	background-position: top;
+	background-size: 20px 20px;
+	margin: 0 0 0 ;
+	border-style: none;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+.changesNewText {
+	font-style: bold;
+	color: #008000;
+	font-size: small;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 0;
+	border: 0;
+	padding: 0;
+}
+
+.changesExitText {
+	font-style: bold;
+	color: #FF0000;
+	font-size: small;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 0;
+	border: 0;
+	padding: 0;
+}
+
+.GooglePaneHeader{
+	font-style: bold;
+	color: #000000;
+	font-size: 22pt;
+	font-family: Lato;
+	border:none;
+}
