@@ -1,12 +1,15 @@
 package com.fca.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fca.retdash.*;
 
 public class ADOConAnnuityBusObjs {
 	
@@ -109,8 +112,8 @@ public class ADOConAnnuityBusObjs {
         List<ConAnnuityOptions> list = new ArrayList<ConAnnuityOptions>();
         Connection c = null;
     	 
-    	 String sql = "SELECT product, provider, z_xml_data_date, changes " + 
-    	  "FROM table(fca_ds_rpt.pck_con_annuity_dash.product_changes('PANN'))"; 
+    	 String sql = "SELECT * " + 
+    	  "FROM table(fca_ds_rpt.pck_con_annuity_dash.ca_product_matrix())"; 
         
         try {
             c = SQLConnection.getConnection();
@@ -134,10 +137,80 @@ public class ADOConAnnuityBusObjs {
     	conAnnuityOptions.setProvider(rs.getString("provider"));
     	conAnnuityOptions.setImpaired(rs.getInt("impaired"));
     	conAnnuityOptions.setEnhanced(rs.getInt("enhanced"));
+    	conAnnuityOptions.setEscalating(rs.getInt("escalating"));
     	conAnnuityOptions.setJoint(rs.getInt("joint"));
     	conAnnuityOptions.setSingle(rs.getInt("single"));
     	conAnnuityOptions.setDeferred(rs.getInt("deferred"));
     	conAnnuityOptions.setAdvised(rs.getInt("advised")); 	
     	return conAnnuityOptions;
     }   
+    
+    public List<FeatureChange> findFeatureChanges() {
+        List<FeatureChange> list = new ArrayList<FeatureChange>();
+        Connection c = null;
+    	 
+    	 String sql = "SELECT * " + 
+    	  "FROM table(fca_ds_rpt.pck_con_annuity_dash.feature_change('PANN'))"; 
+        
+        try {
+            c = SQLConnection.getConnection();
+            Statement s = c.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                list.add(processFeatureChanges(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+		} finally {
+			SQLConnection.close(c);
+		}
+        return list;
+    }
+    
+    protected FeatureChange processFeatureChanges(ResultSet rs) throws SQLException {
+    	FeatureChange featureChange = new FeatureChange();
+    	featureChange.setProduct(rs.getString("product"));
+    	featureChange.setProvider(rs.getString("provider"));        
+    	featureChange.setSubCategory(rs.getString("sub_category"));
+    	featureChange.setFeature(rs.getString("feature"));
+    	featureChange.setFeatureDate(rs.getDate("date_key"));
+    	featureChange.setCurrentValue(rs.getString("current_value"));
+    	featureChange.setPreviousValue(rs.getString("previous_value"));
+	
+    	return featureChange;
+    }   
+    
+    public List<TopFeatureChange> findTopFeatureChanges() {
+        List<TopFeatureChange> list = new ArrayList<TopFeatureChange>();
+        Connection c = null;
+    	 
+    	 String sql = "SELECT * " + 
+    	  "FROM table(fca_ds_rpt.pck_con_annuity_dash.top_feature_change('PANN'))"; 
+        
+        try {
+            c = SQLConnection.getConnection();
+            Statement s = c.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                list.add(processTopFeatureChanges(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+		} finally {
+			SQLConnection.close(c);
+		}
+        return list;
+    }
+    
+    protected TopFeatureChange processTopFeatureChanges(ResultSet rs) throws SQLException {
+    	TopFeatureChange topFeatureChange = new TopFeatureChange();
+    	topFeatureChange.setSubCategory(rs.getString("sub_category"));
+    	topFeatureChange.setFeature(rs.getString("feature"));
+    	topFeatureChange.setChangeCount(rs.getInt("change_count"));
+    	return topFeatureChange;
+    }   
+
+
 }

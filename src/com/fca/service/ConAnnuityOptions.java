@@ -11,6 +11,7 @@ public class ConAnnuityOptions {
     private String Provider;
     private Integer Impaired;
     private Integer Enhanced;
+    private Integer Escalating;
     private Integer Joint;
     private Integer Single;
     private Integer Deferred;
@@ -48,6 +49,14 @@ public class ConAnnuityOptions {
 	public void setEnhanced(Integer Enhanced) {
 		this.Enhanced = Enhanced;
 	}
+	
+	public Integer getEscalating() {
+		return Escalating;
+	}
+
+	public void setEscalating(Integer Escalating) {
+		this.Escalating = Escalating;
+	}	
 	
 	public Integer getJoint() {
 		return Joint;

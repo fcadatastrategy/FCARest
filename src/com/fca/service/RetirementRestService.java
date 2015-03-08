@@ -16,6 +16,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.core.MediaType;
 
+import com.fca.retdash.*;
+
 
 @Path("/annuity")
 public class RetirementRestService  {
@@ -50,4 +52,17 @@ public class RetirementRestService  {
 			return adoConAnunuity.findAnnuityOptions();
 		}		
 		
+		@GET
+		@Path("/featurechanges")
+		@Produces({  MediaType.APPLICATION_JSON })
+		public List<FeatureChange> BuildFeatureChangesJSON() {
+			return adoConAnunuity.findFeatureChanges();
+		}		
+		
+		@GET
+		@Path("/topfeaturechanges")
+		@Produces({  MediaType.APPLICATION_JSON })
+		public List<TopFeatureChange> BuildTopFeatureChangesJSON() {
+			return adoConAnunuity.findTopFeatureChanges();
+		}		
 }

@@ -8,10 +8,98 @@ ProviderApp.controller('ProductChangesCtrl',function ($scope, $http, uiGridConst
 			$scope.sortField = 'changeDate';
 			$scope.reverse = false;
 	});
-});	 // Controller
+});	 // Product Changes Controller
 
 
+ProviderApp.controller('ProductOptionsCtrl',function ($scope, $http, uiGridConstants) {
+	 
+	$http.get('/FCARest/rest/annuity/annuityoptions').success(function(data)  {
+			$scope.options = data; 
+			
+			$scope.sortField = 'provider';
+			$scope.reverse = false;
+			
+			$scope.formData = {
+		          enhanced : 1,
+		          impaired : 1,
+		          escalating : 1,
+		          deferred : 0,
+		          advised : 1,
+		          single : 1,
+		          joint : 1
+		    };
+	});
+});	 // Product Options Controller
+
+ProviderApp.controller('FeatureOptionsCtrl',function ($scope, $http, uiGridConstants) {
+
+	 $scope.columns =[{ field: 'provider', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Provider'}, 
+	                  { field: 'product', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Product'},
+	                  { field: 'subCategory', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Category'},
+	                  { field: 'feature', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Feature'},
+	                  {field: 'featureDate', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Date', enableFiltering:false, width: 80, sort: {direction: uiGridConstants.DESC, priority: 1}},
+	                  { field: 'currentValue', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Current Value'},
+	                  { field: 'previousValue', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Previous Value'},
+	                  ];
+	 
+	 $scope.gridOptions = {
+			 enableSorting: true,
+			 enablePaginationControls: false,
+			 paginationPageSizes: [8,16,24],
+			 paginationPageSize: 4,
+			 enableFiltering: false,
+			 enableHorizontalScrollbar: false,
+			 enableScrollbars: false, 
+			 rowHeight: 25,
+			 columnDefs: $scope.columns
+	 }
+	 
+	 $scope.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER;
+	 // $scope.gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.NEVER;
+	 
+	$scope.gridOptions.onRegisterApi = function (gridApi) {
+			 $scope.gridApi = gridApi;
+	 }
+	 
+	$http.get('/FCARest/rest/annuity/featurechanges').success(function(data)  {
+			$scope.gridOptions.data = data; //.provider; removed as no longer required with POJO mapping in place.	
+	});
+});	 
+
+ProviderApp.controller('TopFeatureOptionsCtrl',function ($scope, $http, uiGridConstants) {
+
+	 $scope.columns =[{ field: 'subCategory', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Category', enableFiltering:false},
+	                  { field: 'feature', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Feature'},
+	                  { field: 'changeCount', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'No Of Changes', enableFiltering:false},
+	                  ];
+	 
+	 $scope.gridOptions = {
+			 enableSorting: true,
+			 enablePaginationControls: false,
+			 paginationPageSizes: [8,16,24],
+			 paginationPageSize: 8,
+			 enableFiltering: true,
+			 enableHorizontalScrollbar: false,
+			 enableScrollbars: false, 
+			 rowHeight: 22,
+			 columnDefs: $scope.columns
+	 }
+	 
+	 $scope.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER;
+	 $scope.gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.NEVER;
+	 
+	$scope.gridOptions.onRegisterApi = function (gridApi) {
+			 $scope.gridApi = gridApi;
+	 }
+	 
+	$http.get('/FCARest/rest/annuity/topfeaturechanges').success(function(data)  {
+			$scope.gridOptions.data = data; //.provider; removed as no longer required with POJO mapping in place.	
+	});
+});	 
+
+// -----------------------------------------------------------------------------------------
 // Google Charts JS
+//-----------------------------------------------------------------------------------------
 
 google.load("visualization", "1.1", {packages:["bar","corechart"]});
 google.setOnLoadCallback(drawChart);
@@ -27,10 +115,11 @@ function drawChart() {
 	title: "Provider Range",
 	titleTextStyle: {fontSize: 14, fontName: 'Lato', color: 'black', bold: true},
     chart: {
-      	subtitle: 'Jan 23rd 2015',
+    //  	subtitle: 'Jan 23rd 2015',
     },
     legend: {position: "none"},
-    vAxis: {title: "", direction: -1},
+    vAxis: { title: "", position: "none" },
+    hAxis: {title: "Number Of Products", titleTextStyle: {fontSize: 11, fontName: 'Lato'}},
     bars: 'horizontal' // Required for Material Bar Charts.
   };
 

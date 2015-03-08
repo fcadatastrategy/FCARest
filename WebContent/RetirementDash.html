@@ -33,7 +33,7 @@
 					<li class="has-dropdown"><a href="#">Annuity</a>
 						<ul class="dropdown">
 							<li><a href="#">Fixed</a></li>
-							<li><a href="#">Coventional</a></li>	
+							<li class="active"><a href="#" >Coventional</a></li>	
 							<li><a href="#">Investment Linked</a></li>		
 						</ul>
 					</li>	
@@ -71,58 +71,160 @@
  
   <div class="row">
 		<div class="large-6 medium-6 small-6 columns">
-
-			<div id="barchart_material" style="width: 450px; height: 300px;"></div>
-
+			<div id="barchart_material" style="width: 450px; height: 350px;"></div>
 		</div>
 		
 		<div class="large-6 medium-6 small-6 columns">
-
-			<div id="chart_div" style="width: 450px; height: 300px;"></div>
-
-
+			<div id="chart_div" style="width: 450px; height: 350px;"></div>
 		</div>		
-	</div>		
+   </div>
 
 
-  <div class="row">
-  		<!--  Product Changes View -->
-		<div class="large-6 medium-6 small-6 columns" ng-controller="ProductChangesCtrl">
+	<div class="row">
+		<!--  Product Changes View -->
+		<div class="large-6 medium-6 small-6 columns"
+			ng-controller="ProductChangesCtrl">
 
-			<br></br>
-			<table class="GooglePaneHeader">
+			
+			<table style="margin: 0; padding: 0; border: none">
 				<tr>
-					<th>Market Entrants and Exits</th>
+					<th class="GooglePaneHeader">Market Entrants and Exits</th>
 				</tr>
 			</table>
-			<table style="margin:0; padding:0;border:none">
+			<table style="margin: 0; padding: 0; border: none">
 				<tr>
 					<th class="TableHeader">Exit / New</th>
-					<th class="TableHeader"><a href="" ng-click="sortField= 'provider'; reverse= !reverse">Product</a></th>
-					<th class="TableHeader"><a href="" ng-click="sortField= 'product'; reverse= !reverse">Provider</a></th>
-					<th class="TableHeader"><a href="" ng-click="sortField= 'changeDate'; reverse= !reverse">Date</a></th>
+					<th class="TableHeader"><a href=""
+						ng-click="sortField= 'provider'; reverse= !reverse">Product</a></th>
+					<th class="TableHeader"><a href=""
+						ng-click="sortField= 'product'; reverse= !reverse">Provider</a></th>
+					<th class="TableHeader"><a href=""
+						ng-click="sortField= 'changeDate'; reverse= !reverse">Date</a></th>
 				</tr>
-				<tr ng-repeat="change in changes | filter:query | orderBy:sortField:reverse">
-					<td width="25px" ng-class="{ 'changesExitImg' : change.changeType == 'Exit', 'changesNewImg' : change.changeType == 'New' }"></td>
-					<td width="125px" ng-class="{ 'changesExitText' : change.changeType == 'Exit', 'changesNewText' : change.changeType == 'New' }">{{change.provider}}</td>
-					<td width="155px" ng-class="{ 'changesExitText' : change.changeType == 'Exit', 'changesNewText' : change.changeType == 'New' }">{{change.product}}</td>
-					<td width="70px" ng-class="{ 'changesExitText' : change.changeType == 'Exit', 'changesNewText' : change.changeType == 'New' }">{{change.changeDate}}</td>
+				<tr
+					ng-repeat="change in changes | filter:query | orderBy:sortField:reverse">
+					<td width="25px"
+						ng-class="{ 'changesExitImg' : change.changeType == 'Exit', 'changesNewImg' : change.changeType == 'New' }"></td>
+					<td width="125px"
+						ng-class="{ 'changesExitText' : change.changeType == 'Exit', 'changesNewText' : change.changeType == 'New' }">{{change.provider}}</td>
+					<td width="155px"
+						ng-class="{ 'changesExitText' : change.changeType == 'Exit', 'changesNewText' : change.changeType == 'New' }">{{change.product}}</td>
+					<td width="70px"
+						ng-class="{ 'changesExitText' : change.changeType == 'Exit', 'changesNewText' : change.changeType == 'New' }">{{change.changeDate}}</td>
 			</table>
 
 		</div>
-		
-		<div class="large-6 medium-6 small-6 columns">
-			<br></br>
-			<table class="GooglePaneHeader" style="margin:0; padding:0;border:none">
-				<tr>
-					<th>Product Range By Options</th>
-				</tr>
-			</table>
 
-			<div></div>
+		<!--  Product Changes View -->
 
+		<div ng-controller="ProductOptionsCtrl">
+			<div class="large-3 medium-3 small-3 columns">
+				<br/>
+				<table style="margin: 0; padding: 0; border: none;">
+					<tr><th class="GooglePaneHeader">Product Range By Options</th></tr>
+				</table>
+			
+				<table style="margin: 0; padding: 0; border: none;">
+					<tr>
+						<th class="TableHeader"><a href=""
+							ng-click="sortField= 'provider'; reverse= !reverse">Product</a></th>
+						<th class="TableHeader"><a href=""
+							ng-click="sortField= 'product'; reverse= !reverse">Provider</a></th>
+					</tr>
+					<tr ng-repeat="option in options | filter:formData | orderBy:sortField:reverse">
+						<td class="TableCell" width="125px"> {{option.provider}}</td>
+						<td class="TableCell" width="155px" >{{option.product}}</td>
+					</tr>		
+				</table>
+			</div>
+			<div class="large-3 medium-3 small-3 columns">
+				<br/><br/>
+	        	<label class="labelclass">Impaired Options</label>
+		        <div>
+		            <label class="checkbox-inline">
+		                <input type="checkbox" name="options" ng-model="formData.enhanced" data-ng-true-value='1' data-ng-false-value='0'> Enhanced&nbsp;&nbsp; 
+		            </label>
+		            <label class="checkbox-inline">
+		                <input type="checkbox" name="options" ng-model="formData.impaired" data-ng-true-value='1' data-ng-false-value='0'> Impaired 
+		            </label>
+		            <br/>
+		         	<label class="labelclass">Escalating</label> <br/>  
+					<label class="checkbox-inline">
+		                <input type="checkbox" name="escalating" ng-model="formData.escalating" data-ng-true-value='1' data-ng-false-value='0'> Yes&nbsp;&nbsp; 
+		            </label>  <br/> 
+		           	<label class="labelclass">Single or Joint</label> <br/> 
+		            <label class="checkbox-inline">
+		                <input type="checkbox" name="singlejoint" ng-model="formData.single" data-ng-true-value='1' data-ng-false-value='0'> Single&nbsp;&nbsp; 
+		            </label>
+		            <label class="checkbox-inline">
+		                <input type="checkbox" name="singlejoint" ng-model="formData.joint" data-ng-true-value='1' data-ng-false-value='0'> Joint 
+		            </label> <br/>
+		            
+		            <label class="labelclass">Deferred</label> <br/>  
+					<label class="checkbox-inline">
+		                <input type="checkbox" name="deferred" ng-model="formData.deferred" data-ng-true-value='1' data-ng-false-value='0'> Yes&nbsp;&nbsp; 
+		            </label> <br/> 
+		            
+		            <label class="labelclass">Advised</label> <br/>  
+		            <label class="checkbox-inline">
+		                <input type="checkbox" name="advised" ng-model="formData.advised" data-ng-true-value='1' data-ng-false-value='0'> Yes&nbsp;&nbsp; 
+		            </label>
+		            <label class="checkbox-inline">
+		                <input type="checkbox" name="advised" ng-model="formData.advised.yes" data-ng-true-value='1' data-ng-false-value='0'> No 
+		            </label> <br/>
+		        </div>
+			</div>
+
+		</div>
+	</div>
+  
+  <!--  Feature Changes View -->
+
+  <div class="row">
+  		<table style="margin: 0; padding: 0; border: none;">
+			<tr><th class="GooglePaneHeader">Feature Changes</th></tr>
+		</table>
+		<div class="large-12 medium-12 small-12 columns" ng-controller="FeatureOptionsCtrl">
+			<div id="featurechangesgrid" ui-grid="gridOptions" class="customGrid" ui-grid-resize-columns ui-grid-pagination></div>
+		</div>
+	</div>
+	<div class="row">	
+		<br/>
+	  	<table style="margin: 0; padding: 0; border: none;">
+			<tr><th class="GooglePaneHeader">Top Feature Changes</th></tr>
+		</table>
+		<div class="large-6 medium-6 small-6 columns" ng-controller="TopFeatureOptionsCtrl">
+			<div id="topfeaturechangesgrid" ui-grid="gridOptions" class="grid" ui-grid-resize-columns ui-grid-pagination></div>
+				<table class="PageTable">
+					<tr class="PageTable">
+						<td class="TableHeader">Current Page:
+							{{gridApi.pagination.getPage()}} of
+							{{gridApi.pagination.getTotalPages()}}</td>
+						<td>
+						<button type="button" class="backpageButton"
+							ng-click="gridApi.pagination.previousPage()"></button>
+						<button type="button" class="nextpageButton"
+							ng-click="gridApi.pagination.nextPage()"></button>
+						</td>
+					</tr>
+				</table>
 		</div>		
-	</div>		
-
+   </div>
+   
+	<br></br>
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="row full-width">
+			<div class="small-12 medium-4 large-4 columns"></div>
+			<div class="small-12 medium-4 large-4 columns">
+				<p class="footer">Copyright © 2015 FCA. All Rights Reserved.</p>
+			</div>
+			<div class="small-6 medium-3 large-2 columns"></div>
+			<div class="small-6 medium-3 large-2 columns">
+				<img style="max-height: 60px;" src="Images/fcalogo.jpg"></img>
+			</div>
+		</div>
+	</footer>
+	
 </body>
 </html>
