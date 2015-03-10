@@ -6,7 +6,7 @@ ProviderApp.controller('ProductChangesCtrl',function ($scope, $http, uiGridConst
 			$scope.changes = data; 
 			
 			$scope.sortField = 'changeDate';
-			$scope.reverse = false;
+			$scope.reverse = true;
 	});
 });	 // Product Changes Controller
 
@@ -112,15 +112,16 @@ function drawChart() {
   data.addColumn('number', 'Products');
 
   var options = {
-	title: "Provider Range",
+	title: "",
 	titleTextStyle: {fontSize: 14, fontName: 'Lato', color: 'black', bold: true},
-    chart: {
+    //chart: {
     //  	subtitle: 'Jan 23rd 2015',
-    },
+    //},
     legend: {position: "none"},
-    vAxis: { title: "", position: "none" },
-    hAxis: {title: "Number Of Products", titleTextStyle: {fontSize: 11, fontName: 'Lato'}},
-    bars: 'horizontal' // Required for Material Bar Charts.
+    vAxis: { title: "", position: "none"},
+    hAxis: {title: "Number Of Products", viewWindow:{max:2, min:0}, titleTextStyle: {fontSize: 11, fontName: 'Lato'}},
+    chxs : '0N*f0*',
+    bars: 'horizontal', // Required for Material Bar Charts.
   };
 
   var chart = new google.charts.Bar(document.getElementById('barchart_material'));
@@ -137,7 +138,7 @@ function drawChart() {
   
   // Process Javascript Object and add rows to data
   for(var i = 0; i < jsonData.length; i++) {
-	    var obj = jsonData[i];
+	    var obj = jsonData[i]; 
 	    // console.log(obj.provider);
 	    // console.log(obj.productCount);
 	    data.addRows([[obj.provider, Number(obj.productCount)]]);
@@ -160,16 +161,16 @@ function drawVisualization() {
   };
   
   data.addColumn('string', 'Month');
-  data.addColumn('number', 'Product');
-  data.addColumn('number', 'Provider');
+  data.addColumn('number', 'Product Count');
+  data.addColumn('number', 'Provider Count');
 
   var options = {
-    title : 'Products and Providers Over Time',
     titleTextStyle: {fontSize: 14, fontName: 'Lato'},
     animation: { startup: true, duration: 1000},
-    vAxis: {title: "Count"},
+    vAxis: {title: ""},
+    hAxis : { format: 'MMM yy'},
     seriesType: "bars",
-    cssClassNames : customClassNames,
+    //cssClassNames : customClassNames,
     series: {1: {type: "line"}}
   };
   
@@ -182,13 +183,16 @@ function drawVisualization() {
   
   // parse JSON into Javascript Object
   var jsonData = JSON.parse(rawjsonData);
+  var monnames = new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
   
   // Process Javascript Object and add rows to data
   for(var i = 0; i < jsonData.length; i++) {
 	    var obj = jsonData[i];
-	    // console.log(obj.provider);
-	    // console.log(obj.productCount);
-	    data.addRows([[obj.yearMonth, Number(obj.productCount), Number(obj.providerCount)]]);
+	    //console.log(obj.yearMonth); Cn't use date as chart is created as a discrete chart
+	    var dateobj = new Date(obj.yearMonth);
+	    var datestr = monnames[dateobj.getMonth()] + " " + dateobj.getFullYear();
+	    // console.log(datestr);
+	    data.addRows([[datestr, Number(obj.productCount), Number(obj.providerCount)]]);
 	}
   
   var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));

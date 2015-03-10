@@ -157,10 +157,10 @@ public class ADOBusinessObjs {
         String sql = "SELECT all_arts.pubname, all_articles, nvl(market_arts.mark_articles,0) mark_articles " + 
         				" FROM (  " + 
         						" SELECT count(title) all_articles, pubname  " +  
-        						" FROM table(fca_ds_rpt.pck_rss_search.search_rss(3,'','RSS'))  " + 
+        						" FROM table(fca_ds_rpt.pck_rss_search.search_rss(7,'','RSS'))  " + 
         						" GROUP BY pubname ) all_arts,  " + 
         						" (SELECT count(title) mark_articles, pubname   " + 
-        						" FROM table(fca_ds_rpt.pck_rss_search.meta_search_rss(3,'Retirement','Retirement'))  " + 
+        						" FROM table(fca_ds_rpt.pck_rss_search.meta_search_rss(7,'Retirement','Retirement'))  " + 
         						" GROUP BY pubname ) market_arts  " + 
         						" WHERE all_arts.pubname = market_arts.pubname (+) ";    	
         

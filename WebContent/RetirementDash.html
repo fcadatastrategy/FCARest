@@ -70,11 +70,23 @@
 	</div>
  
   <div class="row">
+  
 		<div class="large-6 medium-6 small-6 columns">
+			<table style="margin: 0; padding: 0; border: none">
+				<tr>
+					<th class="GooglePaneHeader">Provider Range</th>
+					<th class="searchtext"> Jan 2015</th>
+				</tr>
+			</table>
 			<div id="barchart_material" style="width: 450px; height: 350px;"></div>
 		</div>
 		
 		<div class="large-6 medium-6 small-6 columns">
+			<table style="margin: 0; padding: 0; border: none">
+				<tr>
+					<th class="GooglePaneHeader">Products and Providers Over Time</th>
+				</tr>
+			</table>
 			<div id="chart_div" style="width: 450px; height: 350px;"></div>
 		</div>		
    </div>
@@ -82,10 +94,8 @@
 
 	<div class="row">
 		<!--  Product Changes View -->
-		<div class="large-6 medium-6 small-6 columns"
-			ng-controller="ProductChangesCtrl">
-
-			
+		<div class="large-6 medium-6 small-6 columns" ng-controller="ProductChangesCtrl">
+			<br/>	
 			<table style="margin: 0; padding: 0; border: none">
 				<tr>
 					<th class="GooglePaneHeader">Market Entrants and Exits</th>
@@ -95,9 +105,9 @@
 				<tr>
 					<th class="TableHeader">Exit / New</th>
 					<th class="TableHeader"><a href=""
-						ng-click="sortField= 'provider'; reverse= !reverse">Product</a></th>
-					<th class="TableHeader"><a href=""
 						ng-click="sortField= 'product'; reverse= !reverse">Provider</a></th>
+					<th class="TableHeader"><a href=""
+						ng-click="sortField= 'provider'; reverse= !reverse">Product</a></th>
 					<th class="TableHeader"><a href=""
 						ng-click="sortField= 'changeDate'; reverse= !reverse">Date</a></th>
 				</tr>
@@ -111,6 +121,7 @@
 						ng-class="{ 'changesExitText' : change.changeType == 'Exit', 'changesNewText' : change.changeType == 'New' }">{{change.product}}</td>
 					<td width="70px"
 						ng-class="{ 'changesExitText' : change.changeType == 'Exit', 'changesNewText' : change.changeType == 'New' }">{{change.changeDate}}</td>
+				</tr>
 			</table>
 
 		</div>
@@ -121,7 +132,8 @@
 			<div class="large-3 medium-3 small-3 columns">
 				<br/>
 				<table style="margin: 0; padding: 0; border: none;">
-					<tr><th class="GooglePaneHeader">Product Range By Options</th></tr>
+					<th class="GooglePaneHeader">Product Options</th>
+					<th class="searchtext"> Jan 2015</th>
 				</table>
 			
 				<table style="margin: 0; padding: 0; border: none;">
@@ -182,7 +194,8 @@
 
   <div class="row">
   		<table style="margin: 0; padding: 0; border: none;">
-			<tr><th class="GooglePaneHeader">Feature Changes</th></tr>
+			<th class="GooglePaneHeader">Feature Changes</th>
+			<th class="searchtext"> Jan 2015</th>
 		</table>
 		<div class="large-12 medium-12 small-12 columns" ng-controller="FeatureOptionsCtrl">
 			<div id="featurechangesgrid" ui-grid="gridOptions" class="customGrid" ui-grid-resize-columns ui-grid-pagination></div>
@@ -191,7 +204,8 @@
 	<div class="row">	
 		<br/>
 	  	<table style="margin: 0; padding: 0; border: none;">
-			<tr><th class="GooglePaneHeader">Top Feature Changes</th></tr>
+			<th class="GooglePaneHeader">Top Feature Changes</th>
+			<th class="searchtext"> Jan 2015</th>
 		</table>
 		<div class="large-6 medium-6 small-6 columns" ng-controller="TopFeatureOptionsCtrl">
 			<div id="topfeaturechangesgrid" ui-grid="gridOptions" class="grid" ui-grid-resize-columns ui-grid-pagination></div>
