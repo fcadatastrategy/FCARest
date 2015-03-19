@@ -18,6 +18,10 @@
 <script src="js/ui-grid-unstable.js"></script>
 <script src="js/SearchDash.js"></script>
 
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.js"></script>
+
+
 </head>
 
 <body>
@@ -39,16 +43,14 @@
 
 					<li class="has-dropdown"><a href="#">Market</a>
 						<ul class="dropdown">
-							<li><a href="#">SIPP</a></li>
-							<li><a href="#">Coventional Annuity</a></li>
-							<li><a href="#">Income Drawdown</a></li>
+							<li class="active"><a href="#">Retirement Income</a></li>
+							<li><a href="#">Cash Savings</a></li>
+							<li><a href="#">Credit Cards</a></li>
 						</ul></li>
 
-					<li class="has-dropdown"><a href="#">Sector</a>
+					<li class="has-dropdown"><a href="#">Dashboards</a>
 						<ul class="dropdown">
-							<li><a href="#">Credit</a></li>
-							<li><a href="#">Retirement</a></li>
-							<li><a href="#">Blah</a></li>
+							<li><a href="/FCARest/RetirementDash.html" target="_blank">Annuity</a></li>
 						</ul></li>
 
 					<li class="has-form">
@@ -144,6 +146,7 @@
 			<table ng-controller="InputCtrl" role="grid" class="responsive panel"
 				style="margin: 0; padding: 0; border: none; width: 100%">
 				<tr>
+					<th></th>
 					<th><a class="TableHeader" href=""
 						ng-click="sortField= 'productName'; reverse= !reverse">Media
 							Source</a></th>
@@ -157,7 +160,8 @@
 				<tr
 					ng-repeat="sum in summary | filter:query | orderBy:sortField:reverse"
 					class="TableCell">
-					<td class="TableCell"><a href="#">{{sum.pubName}}</a></td>
+					<td class="TableCell"><img src="Images/MediaSourceImg/{{sum.pubImg}}" width="40" height="40"></img></td>
+					<td class="TableCell"><a href="{{sum.pubURL}}" target="_blank">{{sum.pubName}}</a></td>
 					<td class="TableCell">{{sum.allArticleCount}}</td>
 					<td class="searchtext">{{sum.marketArticleCount}}</td>
 			</table>

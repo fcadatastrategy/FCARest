@@ -2,7 +2,7 @@ var ProviderApp = angular.module('ProviderApp', ['ui.grid','ui.grid.resizeColumn
 
 ProviderApp.controller('ProductChangesCtrl',function ($scope, $http, uiGridConstants) {
 	 
-	$http.get('/FCARest/rest/annuity/prodchanges').success(function(data)  {
+	$http.get('/FCARest/dash/annuity/prodchanges').success(function(data)  {
 			$scope.changes = data; 
 			
 			$scope.sortField = 'changeDate';
@@ -13,7 +13,7 @@ ProviderApp.controller('ProductChangesCtrl',function ($scope, $http, uiGridConst
 
 ProviderApp.controller('ProductOptionsCtrl',function ($scope, $http, uiGridConstants) {
 	 
-	$http.get('/FCARest/rest/annuity/annuityoptions').success(function(data)  {
+	$http.get('/FCARest/dash/annuity/annuityoptions').success(function(data)  {
 			$scope.options = data; 
 			
 			$scope.sortField = 'provider';
@@ -61,7 +61,7 @@ ProviderApp.controller('FeatureOptionsCtrl',function ($scope, $http, uiGridConst
 			 $scope.gridApi = gridApi;
 	 }
 	 
-	$http.get('/FCARest/rest/annuity/featurechanges').success(function(data)  {
+	$http.get('/FCARest/dash/annuity/featurechanges').success(function(data)  {
 			$scope.gridOptions.data = data; //.provider; removed as no longer required with POJO mapping in place.	
 	});
 });	 
@@ -92,7 +92,7 @@ ProviderApp.controller('TopFeatureOptionsCtrl',function ($scope, $http, uiGridCo
 			 $scope.gridApi = gridApi;
 	 }
 	 
-	$http.get('/FCARest/rest/annuity/topfeaturechanges').success(function(data)  {
+	$http.get('/FCARest/dash/annuity/topfeaturechanges').success(function(data)  {
 			$scope.gridOptions.data = data; //.provider; removed as no longer required with POJO mapping in place.	
 	});
 });	 
@@ -128,7 +128,7 @@ function drawChart() {
 
   // Get JSON From Web Service
   var rawjsonData = $.ajax({
-      url: "/FCARest/rest/annuity/providercnt",
+      url: "/FCARest/dash/annuity/providercnt",
       dataType:"json",
       async: false
       }).responseText; 
@@ -176,7 +176,7 @@ function drawVisualization() {
   
   // Get JSON From Web Service
   var rawjsonData = $.ajax({
-      url: "/FCARest/rest/annuity/prodprovtime",
+      url: "/FCARest/dash/annuity/prodprovtime",
       dataType:"json",
       async: false
       }).responseText; 

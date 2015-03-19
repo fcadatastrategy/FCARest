@@ -1,9 +1,9 @@
-var ProviderApp = angular.module('ProviderApp', ['ui.grid','ui.grid.resizeColumns','ui.grid.pagination','ngResource']);  // note you can add multiple injectors ['ui.grid','blah']
+var ProviderApp = angular.module('ProviderApp', ['ngAnimate','ngTouch','ui.grid','ui.grid.resizeColumns','ui.grid.pagination','ngResource']);  // note you can add multiple injectors ['ui.grid','blah']
 //	var ProviderApp = angular.module('ProviderApp', []);
 
 ProviderApp.controller('ProdProviderCtrl',function ($scope, $http, uiGridConstants) {
 
-	 $scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Title'}, 
+	 $scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Title', cellTooltip: true}, 
 	                  {field: 'articlePubDate', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Date', enableFiltering:false, width: 80, sort: {direction: uiGridConstants.DESC, priority: 1}},
 	                  {field: 'articleLink', displayName: '', enableFiltering:false, cellClass: 'LinkCell', headerClass: 'TableHeader', width: 20, 
 		 					cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{COL_FIELD}}" target="_blank"><img src="Images/link.jpg" width="20" height="20"></img></a></div>  '},
@@ -13,6 +13,7 @@ ProviderApp.controller('ProdProviderCtrl',function ($scope, $http, uiGridConstan
 	 
 	 $scope.gridOptions = {
 			 enableSorting: true,
+			 cellTooltip: true,
 			 enablePaginationControls: false,
 			 paginationPageSizes: [8,16,24],
 			 paginationPageSize: 8,
@@ -28,9 +29,12 @@ ProviderApp.controller('ProdProviderCtrl',function ($scope, $http, uiGridConstan
 	 
 	$scope.gridOptions.onRegisterApi = function (gridApi) {
 			 $scope.gridApi = gridApi;
+			 $scope.gridApi.core.on.sortChanged( $scope, function( grid, sort ) {
+			 $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN ); })
+
 	 }
 	 
-	$http.get('/FCARest/rest/sipp/rsssearch/-').success(function(data)  {
+	$http.get('/FCARest/search/retirement/rsssearch/-').success(function(data)  {
 			$scope.gridOptions.data = data; //.provider; removed as no longer required with POJO mapping in place.	
 	});
 });	 
@@ -40,7 +44,7 @@ ProviderApp.controller('ProdProviderCtrl',function ($scope, $http, uiGridConstan
 
 ProviderApp.controller('MarketCtrl',function ($scope, $http, uiGridConstants) {
 	
-		 $scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', title: 'Hello', displayName: 'Title'}, 
+		 $scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', title: 'Hello', displayName: 'Title', cellTooltip: true}, 
 		                  {field: 'articlePubDate', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Date', enableFiltering:false, width: 80, sort: {direction: uiGridConstants.DESC, priority: 1}},
 		                  {field: 'articleLink', displayName: '', enableFiltering:false, cellClass: 'LinkCell', headerClass: 'TableHeader', width: 20, 
 			 					cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{COL_FIELD}}"  target="_blank"><img src="Images/link.jpg" width="20" height="20"></img></a></div>  '},
@@ -66,7 +70,7 @@ ProviderApp.controller('MarketCtrl',function ($scope, $http, uiGridConstants) {
 				 $scope.gridApi = gridApi;
 		 }
 		 
-		$http.get('/FCARest/rest/sipp/rsssearch/*').success(function(data)  {
+		$http.get('/FCARest/search/retirement/rsssearch/*').success(function(data)  {
 				$scope.gridOptions.data = data; //.provider; removed as no longer required with POJO mapping in place.	
 		});
 		
@@ -76,7 +80,7 @@ ProviderApp.controller('MarketCtrl',function ($scope, $http, uiGridConstants) {
 
 ProviderApp.controller('InputCtrl',function ($scope, $http) {	
 	
-	$http.get('/FCARest/rest/sipp/articlesum').success(function(data)  {
+	$http.get('/FCARest/search/retirement/articlesum').success(function(data)  {
 				$scope.summary = data;
 			});
 	
@@ -87,10 +91,10 @@ ProviderApp.controller('InputCtrl',function ($scope, $http) {
 	
 ProviderApp.controller('SearchCtrl',function ($scope, $http, uiGridConstants) {
 	
-	$scope.url = '/FCARest/rest/sipp/rsssearch'; 
+	$scope.url = '/FCARest/search/retirement/rsssearch'; 
 	// $scope.hideGrid = true;
 
-	$scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Title'}, 
+	$scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Title', cellTooltip: true}, 
 	                  {field: 'articlePubDate', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Date', enableFiltering:false, width: 80, sort: {direction: uiGridConstants.DESC, priority: 1}},
 	                  {field: 'articleLink', displayName: '', enableFiltering:false, cellClass: 'LinkCell', headerClass: 'TableHeader', width: 20, 
 		 					cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{COL_FIELD}}"  target="_blank"><img src="Images/link.jpg" width="20" height="20"></img></a></div>  '},
