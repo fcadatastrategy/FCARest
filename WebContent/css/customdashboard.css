@@ -254,3 +254,15 @@
 	bottom: 0;
 	left: 0;
 }
+
+.dropdownselect {
+	background: #e2e2e2;
+	width: 120px;
+	padding: 5px;
+	font-size: 16 px;
+	line-height: 1;
+	border: 1;
+	border-radius: 0;
+	height: 28px;
+	
+}

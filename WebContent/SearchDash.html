@@ -16,11 +16,18 @@
 <script src="js/angular.min.js"></script>
 <script src="js/angular-resource.js"></script>
 <script src="js/ui-grid-unstable.js"></script>
-<script src="js/SearchDash.js"></script>
-
+<script src="js/foundation/foundation.js"></script>
+<script src="js/foundation/foundation.topbar.js"></script>
+<script src="js/foundation/foundation.offcanvas.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.js"></script>
+<script src="js/SearchDash.js"></script>
 
+<script>
+	$(document).ready(function(){
+		$(document).foundation();
+	});
+</script>
 
 </head>
 
@@ -41,16 +48,15 @@
 				<ul class="right">
 					<li><a href="#">About</a></li>
 
-					<li class="has-dropdown"><a href="#">Market</a>
+					<li class="has-dropdown"><a href="#">Retirement</a>
 						<ul class="dropdown">
-							<li class="active"><a href="#">Retirement Income</a></li>
-							<li><a href="#">Cash Savings</a></li>
-							<li><a href="#">Credit Cards</a></li>
+							<li><a href="RetirementProdProviderDash.html">Product Tracker</a></li>
+							<li><a href="RetirementDash.html">Conventional Annuity</a></li>
 						</ul></li>
 
-					<li class="has-dropdown"><a href="#">Dashboards</a>
+					<li class="has-dropdown"><a href="#">Media Intelligence</a>
 						<ul class="dropdown">
-							<li><a href="/FCARest/RetirementDash.html" target="_blank">Annuity</a></li>
+							<li class="active"><a href="#">Retirement Media</a></li>
 						</ul></li>
 
 					<li class="has-form">

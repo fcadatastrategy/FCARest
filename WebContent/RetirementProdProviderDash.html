@@ -14,13 +14,21 @@
 <script src="js/angular-resource.js"></script>
 <script src="js/ui-grid-unstable.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-
+<script src="js/foundation/foundation.js"></script>
+<script src="js/foundation/foundation.topbar.js"></script>
+<script src="js/foundation/foundation.offcanvas.js"></script>
 <script src="js/RetirementProdProviderDash.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$(document).foundation();
+	});
+</script>
 
 </head>
 <body>
 	<div class="contain-to-grid sticky">
-		<nav class ="top-bar" data-topbar>
+		<nav class ="top-bar" data-topbar role="navigation">
 			<ul class="title-area">
 				<li class="name">
 					<h1><a href="#">Retirement Income Open Market Products and Provider</a></h1>
@@ -30,19 +38,16 @@
 			</ul>
 			<section class="top-bar-section">
 				<ul class="right">
-					<li class="has-dropdown"><a href="#">Annuity</a>
+					<li class="has-dropdown"><a href="#">Retirement</a>
 						<ul class="dropdown">
-							<li><a href="#">Fixed</a></li>
-							<li class="active"><a href="#" >Coventional</a></li>	
-							<li><a href="#">Investment Linked</a></li>		
+							<li class="active"><a href="#">Product Tracker</a></li>
+							<li ><a href="RetirementDash.html" >Coventional Annuity</a></li>		
 						</ul>
 					</li>	
 
-					<li class="has-dropdown"><a href="#">Income Drawdown</a>
+					<li class="has-dropdown"><a href="#">Media Intelligence</a>
 						<ul class="dropdown">
-							<li><a href="#">PPP</a></li>
-							<li><a href="#">SIPP</a></li>	
-							<li><a href="#">Variable</a></li>		
+							<li><a href="SearchDash.html">Retirement Media</a></li>	
 						</ul>					
 					</li>						
 					<li class="has-form">
@@ -66,8 +71,8 @@
 		<div id="test" class="large-12 medium-12 small-12 columns" ng-controller="DateSelectorCtrl">
 			<table style="margin: 0; padding: 0; border: none">
 				<tr>
-					<td class="searchtext">Select Static View Date:- </td>
-					<td> <select ng-change="loadDataFromServer()" data-ng-options="d.date for d in datadates" data-ng-model="selectedDate"></select> </td>
+					<td valign="middle" class="searchtext">Select Static View Date:- </td>
+					<td valign="middle"> <select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="d.datadate for d in datadates" data-ng-model="selectedDate"></select> </td>
 					<td style="min-width:100px"></td>
 					<td class="nodeproviderdesc">Providers</td>
 					<td></td>
