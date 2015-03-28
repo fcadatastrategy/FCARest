@@ -159,6 +159,10 @@
     height: 200px;
     }
     
+  .largeCustomGrid {
+    height: 300px;
+    }  
+    
 .active {
         background-color: #f90;
     }   
@@ -265,4 +269,8 @@
 	border-radius: 0;
 	height: 28px;
 	
+}
+
+ng-hide: {
+  display:block!important;
 }

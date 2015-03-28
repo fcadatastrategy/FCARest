@@ -27,7 +27,7 @@ public class RestServiceSearch {
 	ADOSearchBusObjs ado = new ADOSearchBusObjs();
 	ADOAnnuityBusObjs adoConAnunuity = new ADOAnnuityBusObjs();
 		
-	@GET
+/*	@GET
 	@Path("/provider")
 	@Produces({  MediaType.APPLICATION_JSON })
 	public List<JSONProvider> findAll() {
@@ -41,7 +41,7 @@ public class RestServiceSearch {
 	public List<Advertiser> findAllAdv() {
 		return ado.findAllAdvertisers();
 		
-	}
+	}*/
 	
 	@GET
 	@Path("/articlesum")
@@ -55,7 +55,7 @@ public class RestServiceSearch {
 	@Path("/rsssearch/{srchstr}")
 	@Produces({  MediaType.APPLICATION_JSON })
 	public List<JSONArticle> findKeywordArticles(@PathParam("srchstr") String srchString) {
-		System.out.println("Search String" + srchString);
+		//System.out.println("Search String" + srchString);
 		if (srchString.equals("*")) {
 			return ado.findAllMarketArticles();
 		}

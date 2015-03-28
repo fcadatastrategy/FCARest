@@ -17,7 +17,7 @@ public class ADOAnnuityBusObjs {
         Connection c = null;
     	 
     	 String sql = "SELECT provider, product_cnt " + 
-    	  "FROM table(fca_ds_rpt.pck_con_annuity_dash.provider_range('23-JAN-15'))"; 
+    	  "FROM table(fca_ds_rpt.pck_con_annuity_dash.provider_range('23-MAR-15'))"; 
         
         try {
             c = SQLConnection.getConnection();

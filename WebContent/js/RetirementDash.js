@@ -45,21 +45,22 @@ ProviderApp.controller('FeatureOptionsCtrl',function ($scope, $http, uiGridConst
 	 $scope.gridOptions = {
 			 enableSorting: true,
 			 enablePaginationControls: false,
-			 paginationPageSizes: [8,16,24],
-			 paginationPageSize: 4,
+			 paginationPageSizes: [6,12,18],
+			 paginationPageSize: 200,
 			 enableFiltering: false,
-			 enableHorizontalScrollbar: false,
-			 enableScrollbars: false, 
+			 enableHorizontalScrollbar: true,
+			 enableVerticalScrollbar: true,
+			 enableScrollbars: true, 
 			 rowHeight: 25,
 			 columnDefs: $scope.columns
-	 }
+	 };
 	 
 	 $scope.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER;
-	 // $scope.gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.NEVER;
+	//  $scope.gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.NEVER;
 	 
 	$scope.gridOptions.onRegisterApi = function (gridApi) {
 			 $scope.gridApi = gridApi;
-	 }
+	 };
 	 
 	$http.get('/FCARest/dash/annuity/featurechanges').success(function(data)  {
 			$scope.gridOptions.data = data; //.provider; removed as no longer required with POJO mapping in place.	

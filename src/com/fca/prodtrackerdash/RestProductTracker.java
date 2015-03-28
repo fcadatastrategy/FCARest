@@ -28,4 +28,11 @@ public class RestProductTracker {
 		return adoProdTracker.findAllRetirementTracker(dataDate);
 	}
 
+	@GET
+	@Path("/prodprovider/{selections}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<JSONProdProvider> JSONProdProvider(@PathParam("selections") String selections) {
+		return adoProdTracker.findProdProviders(selections);
+	}
+	
 }

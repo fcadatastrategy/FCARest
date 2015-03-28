@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.fca.utils.SQLConnection;
 
 public class ADOProdTrackerBusObjs {
@@ -74,6 +75,45 @@ public class ADOProdTrackerBusObjs {
 		productdates.setId(rs.getInt("id"));
 
 		return productdates;
+	}
+	
+	
+	public List<JSONProdProvider> findProdProviders(String selections) {
+		List<JSONProdProvider> list = new ArrayList<JSONProdProvider>();
+		Connection c = null;
+	    String selNode;
+	    String dataDate;
+	    
+	    String[] parts = selections.split("--");
+	    selNode = parts[0];
+	    dataDate = parts[1];
+	    
+		String sql = "SELECT * FROM table(fca_ds_rpt.pck_gen_dashboard_export.gen_products_providers('" + selNode.toUpperCase() + "','" + dataDate.toUpperCase() + "'))";
+
+		try {
+			c = SQLConnection.getConnection();
+			Statement s = c.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			while (rs.next()) {
+				list.add(processProductprovider(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			SQLConnection.close(c);
+		}
+		return list;
+	}
+
+	protected JSONProdProvider processProductprovider(ResultSet rs)
+			throws SQLException {
+		JSONProdProvider prodprovider = new JSONProdProvider();
+
+		prodprovider.setProduct(rs.getString("PRODUCT"));
+		prodprovider.setProvider(rs.getString("PROVIDER"));
+
+		return prodprovider;
 	}
 
 }

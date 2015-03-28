@@ -40,8 +40,6 @@ ProviderApp.controller('ProdProviderCtrl',function ($scope, $http, uiGridConstan
 });	 
 
 
-// 'http://ec2-54-72-253-133.eu-west-1.compute.amazonaws.com:8080/FCARest/rest/sipp/provider')
-
 ProviderApp.controller('MarketCtrl',function ($scope, $http, uiGridConstants) {
 	
 		 $scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', title: 'Hello', displayName: 'Title', cellTooltip: true}, 
@@ -92,7 +90,7 @@ ProviderApp.controller('InputCtrl',function ($scope, $http) {
 ProviderApp.controller('SearchCtrl',function ($scope, $http, uiGridConstants) {
 	
 	$scope.url = '/FCARest/search/retirement/rsssearch'; 
-	// $scope.hideGrid = true;
+	$scope.hideGrid = true;
 
 	$scope.columns =[{ field: 'articleTitle', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Title', cellTooltip: true}, 
 	                  {field: 'articlePubDate', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Date', enableFiltering:false, width: 80, sort: {direction: uiGridConstants.DESC, priority: 1}},
@@ -111,14 +109,14 @@ ProviderApp.controller('SearchCtrl',function ($scope, $http, uiGridConstants) {
 			 enableHorizontalScrollbar: false,
 			 enableScrollbars: false, 
 			 columnDefs: $scope.columns
-	 }
+	 };
 	 
 	 $scope.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER;
 	 $scope.gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.NEVER;
 	 
 	$scope.gridOptions.onRegisterApi = function (gridApi) {
 			 $scope.gridApi = gridApi;
-	 }	
+	 };	
 	
 	// The url of our search // The function that will be executed on button click (ng-click="search()") 
 	$scope.search = function() { 
@@ -128,7 +126,7 @@ ProviderApp.controller('SearchCtrl',function ($scope, $http, uiGridConstants) {
 			success(function(data) { 
 			// set model result to data contents - lookup angularjs instructions on models
 				$scope.gridOptions.data = data; 
-			})	
+			});	
 		}; 
 		
 	});	// Controller 

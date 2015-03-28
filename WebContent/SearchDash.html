@@ -192,7 +192,7 @@
 				</tr>
 			</table>
 
-			<div class="well" ng-hide="hideGrid">
+			<div class="well" ng-if="hideGrid==false" >
 				<div id="searchgrid" ui-grid="gridOptions" class="grid"
 					ui-grid-resize-columns ui-grid-pagination></div>
 				<table class="PageTable">

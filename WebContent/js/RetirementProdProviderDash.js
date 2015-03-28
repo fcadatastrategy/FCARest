@@ -1,9 +1,38 @@
-var ProviderApp = angular.module('ProviderApp', ['ngResource']);  // note you can add multiple injectors ['ui.grid','blah']
+var ProviderApp = angular.module('ProviderApp', ['ui.grid','ui.grid.resizeColumns','ui.grid.pagination','ngResource']);  // note you can add multiple injectors ['ui.grid','blah']
 
 
 
-ProviderApp.controller('DateSelectorCtrl',function ($scope, $http) {
+ProviderApp.controller('DateSelectorCtrl',function ($scope, $http,uiGridConstants) {
 	
+	 
+	 $scope.columns =[{ field: 'provider', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Provider', enableFiltering:false},
+	                  { field: 'product', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Product'},
+	                  ];
+	 
+	 $scope.gridOptions = {
+			 enableSorting: true,
+			 enablePaginationControls: false,
+			 paginationPageSizes: [8,16,24],
+			 paginationPageSize: 20,
+			 enableFiltering: true,
+			 enableHorizontalScrollbar: false,
+			 enableScrollbars: false, 
+			 rowHeight: 22,
+			 columnDefs: $scope.columns
+	 };
+	 
+	 $scope.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER;
+	 $scope.gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.NEVER;
+	 
+	$scope.gridOptions.onRegisterApi = function (gridApi) {
+			 $scope.gridApi = gridApi;
+	 };
+	
+			 
+	 $scope.hideGrid = {
+			  grid: false
+			};
+	 
 	 
 	$http.get('/FCARest/track/prodtracker/retdatadates').success(function(data)  {
 			$scope.datadates = data; //
@@ -14,11 +43,28 @@ ProviderApp.controller('DateSelectorCtrl',function ($scope, $http) {
 	
 	
 	$scope.loadDataFromServer = function() {
-
-			//alert("Angular Hello");
 			drawChart();
-
-	    };
+	    };	
+	    
+	$scope.loadProdProvidersFromServer = function(selectedNode) {
+			//alert($scope.selectedDate.datadate);
+			
+			$scope.prodType = selectedNode.substring(0, selectedNode.search("<"));
+			$scope.prodType = $scope.prodType.replace(/\s+/g, '');
+			var callstring = $scope.prodType + "--" + $scope.selectedDate.datadate; 
+			
+			var url = "/FCARest/track/prodtracker/prodprovider/" + callstring;
+			
+			$http.get(url).success(function(data)  {							
+				$scope.gridOptions.data = data;				
+			});	
+			
+			 $scope.hideGrid = {
+					  grid: true
+					};
+			
+	  };	    
+	    
 });	 
 
 
@@ -66,7 +112,7 @@ function drawChart() {
   ]);*/ 
 
   // Get the selected date from the AngularJS model to pass into the URL JSON call
-  var scope = angular.element($("#test")).scope();
+  var scope = angular.element($("#selectdiv")).scope();
   var seldate = scope.selectedDate.datadate;
   var urlbase = "/FCARest/track/prodtracker/retprodtracker/" + seldate;
 	  
@@ -97,5 +143,20 @@ function drawChart() {
 
   var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
   chart.draw(data, {allowHtml:true, size:'medium', nodeClass:'nodeclass'});
+  
+  google.visualization.events.addListener(chart, 'select', selectHandler);
     
+  function selectHandler(e) {
+	  // Get selected item and pass it back to the AngularJS to refresh providers
+	  var selitem = data.getFormattedValue(chart.getSelection()[0].row , 0);	  
+	  angular.element($("#selectdiv")).scope().loadProdProvidersFromServer(selitem);
+	  
+
+  }
+  
 }
+
+
+
+
+

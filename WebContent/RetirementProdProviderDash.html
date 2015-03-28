@@ -66,24 +66,48 @@
 		</nav>
 	</div>
  
-  <div class="row">
-  
-		<div id="test" class="large-12 medium-12 small-12 columns" ng-controller="DateSelectorCtrl">
-			<table style="margin: 0; padding: 0; border: none">
-				<tr>
-					<td valign="middle" class="searchtext">Select Static View Date:- </td>
-					<td valign="middle"> <select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="d.datadate for d in datadates" data-ng-model="selectedDate"></select> </td>
-					<td style="min-width:100px"></td>
-					<td class="nodeproviderdesc">Providers</td>
-					<td></td>
-					<td class="nodeproductdesc" >Products</td>
-				</tr>
-			</table>
-			<div id="chart_div"></div>
-		</div>
-
-   </div>
-
+  <div ng-controller="DateSelectorCtrl">
+	  <div class="row" >
+	  
+			<div id="selectdiv" class="large-12 medium-12 small-12 columns" >
+				<table style="margin: 0; padding: 0; border: none">
+					<tr>
+						<td valign="middle" class="searchtext">Select Static View Date:- </td>
+						<td valign="middle"> <select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="d.datadate for d in datadates" data-ng-model="selectedDate"></select> </td>
+						<td style="min-width:100px"></td>
+						<td class="nodeproviderdesc">Providers</td>
+						<td></td>
+						<td class="nodeproductdesc" >Products</td>
+					</tr>
+				</table>
+				<div id="chart_div"></div>
+			</div>
+		</div>		
+		<div class="row"  >
+			<div  class="large-6 medium-6 small-6 columns" ng-if="hideGrid.grid==true" >
+				<table class="callout panel" style="margin: 0; padding: 0; border: none; width: 100%;">
+					<tr>
+						<th>{{prodType}} Providers And Products </br> On {{selectedDate.datadate}}  </th>
+					</tr>
+				</table>
+				<div  ui-grid="gridOptions" class="largeCustomGrid" ui-grid-resize-columns ui-grid-pagination></div>
+				<table class="PageTable">
+					<tr class="PageTable">
+						<td class="TableHeader">Current Page:
+							{{gridApi.pagination.getPage()}} of
+							{{gridApi.pagination.getTotalPages()}}</td>
+						<td>
+							<button type="button" class="backpageButton"
+								ng-click="gridApi.pagination.previousPage()"></button>
+							<button type="button" class="nextpageButton"
+								ng-click="gridApi.pagination.nextPage()"></button>
+						</td>
+					</tr>
+				</table>
+			</div>
+	
+	   </div>
+   </div>	
    
 	<br></br>
 	<!-- Footer -->

@@ -14,28 +14,6 @@ import com.fca.utils.SQLConnection;
 
 public class ADOSearchBusObjs {
 	
-    public List<JSONProvider> findAllProviders() {
-        List<JSONProvider> list = new ArrayList<JSONProvider>();
-        Connection c = null;
-    	String sql = "SELECT DISTINCT PROVIDER_ID id, PROVIDER ProviderName, PRODUCT Product " +
-			"FROM FCA_DS_STG.S_DQ_PPP_DATA_BROCHURE  " + 
-    	    "WHERE Z_XML_DATA_DATE = ( SELECT MAX(Z_XML_DATA_DATE) FROM FCA_DS_STG.S_DQ_PPP_DATA_BROCHURE )";
-        
-        try {
-            c = SQLConnection.getConnection();
-            Statement s = c.createStatement();
-            ResultSet rs = s.executeQuery(sql);
-            while (rs.next()) {
-                list.add(processProviderRow(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-		} finally {
-			SQLConnection.close(c);
-		}
-        return list;
-    }
     
     protected JSONProvider processProviderRow(ResultSet rs) throws SQLException {
     	JSONProvider provider = new JSONProvider();
@@ -45,7 +23,7 @@ public class ADOSearchBusObjs {
     	return provider;
     }
 
-    public List<Advertiser> findAllAdvertisers() {
+/*    public List<Advertiser> findAllAdvertisers() {
         List<Advertiser> list = new ArrayList<Advertiser>();
         Connection c = null;
     	String sql = "SELECT Product AdvertiserProduct, SUM(DISCOUNTEDSPEND) AdSpend " +
@@ -74,14 +52,14 @@ public class ADOSearchBusObjs {
     	advertiser.setAdSpend(rs.getDouble("AdSpend"));
     	return advertiser;
     }
-    
+    */
     
     public List<JSONArticle> findAllMarketArticles() {
         List<JSONArticle> list = new ArrayList<JSONArticle>();
         Connection c = null;
     	 
     	 String sql = "SELECT DISTINCT title, description, pubdate, url link " + 
-    	  "FROM table(fca_ds_rpt.pck_rss_search.meta_search_rss(365,'Retirement','Retirement'))"; 
+    	  "FROM table(fca_ds_rpt.pck_rss_search.meta_search_rss(30,'Retirement','Retirement'))"; 
         
         try {
             c = SQLConnection.getConnection();
@@ -127,7 +105,7 @@ public class ADOSearchBusObjs {
         Connection c = null;
     	
         String sql = "SELECT title, description, pubdate, url link " + 
-    	  "FROM table(fca_ds_rpt.pck_rss_search.search_rss(365,'" + srchstr.toUpperCase() + "','RSS'))  ";    	
+    	  "FROM table(fca_ds_rpt.pck_rss_search.search_rss(30,'" + srchstr.toUpperCase() + "','RSS'))  ";    	
         
         try {
             c = SQLConnection.getConnection();
