@@ -193,13 +193,13 @@
   
   <!--  Feature Changes View -->
 
-  <div class="row">
-  		<table style="margin: 0; padding: 0; border: none;">
+  <div class="row" ng-controller="FeatureOptionsCtrl">
+  		<table style="margin: 0; padding: 0; border: none; width: 30%;">
 			<th class="GooglePaneHeader">Feature Changes</th>
-			<th class="searchtext"> 23 Mar 2015</th>
+			<th class="searchtext"> 23 Mar 2015<button class="exportcsv" ng-click="export()"></button></th>
 		</table>
-		<div class="large-12 medium-12 small-12 columns" ng-controller="FeatureOptionsCtrl">
-			<div id="featurechangesgrid" ui-grid="gridOptions" class="customGrid" ui-grid-resize-columns ui-grid-pagination></div>
+		<div class="large-12 medium-12 small-12 columns">
+			<div id="featurechangesgrid" ui-grid="gridOptions" class="customGrid" ui-grid-resize-columns ui-grid-exporter ui-grid-pagination></div>
 		</div>
 	</div>
 	<div class="row">	

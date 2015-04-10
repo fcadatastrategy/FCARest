@@ -167,6 +167,14 @@
         background-color: #f90;
     }   
     
+ .nodetab {
+	font-style: normal;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size: 12px;
+	border-style: none;
+	background-color:#FFFFCC; 
+ }    
+    
  .nodeclass {
 	font-style: normal;
 	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
@@ -216,6 +224,126 @@
 	max-width: 28px;
 	margin: 0 0 0;
 	float: left;
+	position: relative;
+	bottom: 0;
+	left: 0;
+}
+
+ .nodeprovidercompdown {
+	font-style: normal;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size: 12px;
+	color: red;
+	min-width: 30px;
+	font-weight: bold;
+	text-align: left;
+	background-position: right top;
+	background-repeat: no-repeat;
+	background-image: url(../Images/down.png);
+	background-size: 14px 14px;
+	background-color: #FFFFCC;
+	margin: 0 0 0;
+	float: left;
+	position: relative;
+	bottom: 0;
+	left: 0;
+}
+
+ .nodeprovidercompup {
+	font-style: normal;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size: 12px;
+	color: green;
+	min-width: 30px;
+	font-weight: bold;
+	text-align: left;
+	background-position: right top;
+	background-repeat: no-repeat;
+	background-image: url(../Images/up.png);
+	background-size: 14px 14px;
+	background-color: #FFFFCC;
+	margin: 0 0 0;
+	float: left;
+	position: relative;
+	bottom: 0;
+	left: 0;
+}
+
+ .nodeprovidercomppause {
+	font-style: normal;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size: 12px;
+	color: black;
+	min-width: 25px;
+	font-weight: bold;
+	text-align: left;
+	background-position: right top;
+	background-repeat: no-repeat;
+	background-image: url(../Images/pause.png);
+	background-size: 14px 14px;
+	background-color: #FFFFCC;
+	margin: 0 0 0;
+	float: left;
+	position: relative;
+	bottom: 0;
+	left: 0;
+}
+
+ .nodeproductcompdown {
+	font-style: normal;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size: 12px;
+	color: red;
+	min-width: 30px;
+	font-weight: bold;
+	text-align: left;
+	background-position: right top;
+	background-repeat: no-repeat;
+	background-image: url(../Images/down.png);
+	background-size: 14px 14px;
+	background-color: #FFFFCC;
+	margin: 0 0 0;
+	float: right;
+	position: relative;
+	bottom: 0;
+	left: 0;
+}
+
+ .nodeproductcompup {
+	font-style: normal;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size: 12px;
+	color: green;
+	min-width: 30px;
+	font-weight: bold;
+	text-align: left;
+	background-position: right top;
+	background-repeat: no-repeat;
+	background-image: url(../Images/up.png);
+	background-size: 14px 14px;
+	background-color: #FFFFCC;
+	margin: 0 0 0;
+	float: right;
+	position: relative;
+	bottom: 0;
+	left: 0;
+}
+
+ .nodeproductcomppause {
+	font-style: normal;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size: 12px;
+	color: black;
+	min-width: 25px;
+	font-weight: bold;
+	text-align: left;
+	background-position: right top;
+	background-repeat: no-repeat;
+	background-image: url(../Images/pause.png);
+	background-size: 14px 14px;
+	background-color: #FFFFCC;
+	margin: 0 0 0;
+	float: right;
 	position: relative;
 	bottom: 0;
 	left: 0;
@@ -271,6 +399,18 @@
 	
 }
 
-ng-hide: {
-  display:block!important;
+.exportcsv {
+  	font-size: 16 px;
+  	background-image: url(../Images/export.jpg);
+  	background-repeat: no-repeat;
+	background-position: top;
+	background-size: 20px 20px;
+	background-color: #408080;
+	margin: 0 0 0 ;
+	border-style: none;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	float: right;
 }

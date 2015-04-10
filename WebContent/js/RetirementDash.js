@@ -1,4 +1,4 @@
-var ProviderApp = angular.module('ProviderApp', ['ui.grid','ui.grid.resizeColumns','ui.grid.pagination','ngResource']);  // note you can add multiple injectors ['ui.grid','blah']
+var ProviderApp = angular.module('ProviderApp', ['ui.grid','ui.grid.resizeColumns','ui.grid.pagination','ngResource','ui.grid.selection','ui.grid.exporter']);  // note you can add multiple injectors ['ui.grid','blah']
 
 ProviderApp.controller('ProductChangesCtrl',function ($scope, $http, uiGridConstants) {
 	 
@@ -52,11 +52,17 @@ ProviderApp.controller('FeatureOptionsCtrl',function ($scope, $http, uiGridConst
 			 enableVerticalScrollbar: true,
 			 enableScrollbars: true, 
 			 rowHeight: 25,
+			 exporterCsvFilename: 'features.csv',
 			 columnDefs: $scope.columns
 	 };
 	 
 	 $scope.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER;
 	//  $scope.gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.NEVER;
+	 
+	$scope.export  = function() {
+			alert("hello");
+			$scope.gridApi.exporter.csvExport('all','all');	
+	} ; 
 	 
 	$scope.gridOptions.onRegisterApi = function (gridApi) {
 			 $scope.gridApi = gridApi;
@@ -65,6 +71,8 @@ ProviderApp.controller('FeatureOptionsCtrl',function ($scope, $http, uiGridConst
 	$http.get('/FCARest/dash/annuity/featurechanges').success(function(data)  {
 			$scope.gridOptions.data = data; //.provider; removed as no longer required with POJO mapping in place.	
 	});
+	
+	
 });	 
 
 ProviderApp.controller('TopFeatureOptionsCtrl',function ($scope, $http, uiGridConstants) {
