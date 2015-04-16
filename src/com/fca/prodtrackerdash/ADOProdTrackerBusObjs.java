@@ -100,7 +100,7 @@ public class ADOProdTrackerBusObjs {
 	    selNode = parts[0];
 	    dataDate = parts[1];
 	    
-		String sql = "SELECT * FROM table(fca_ds_rpt.pck_gen_dashboard_export.gen_products_providers('" + selNode.toUpperCase() + "','" + dataDate.toUpperCase() + "'))";
+		String sql = "SELECT * FROM table(fca_ds_rpt.pck_ret_prod_tracker.gen_products_providers('" + selNode.toUpperCase() + "','" + dataDate.toUpperCase() + "'))";
 
 		try {
 			c = SQLConnection.getConnection();
