@@ -60,7 +60,6 @@ ProviderApp.controller('FeatureOptionsCtrl',function ($scope, $http, uiGridConst
 	//  $scope.gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.NEVER;
 	 
 	$scope.export  = function() {
-			alert("hello");
 			$scope.gridApi.exporter.csvExport('all','all');	
 	} ; 
 	 

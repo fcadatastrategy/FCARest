@@ -414,3 +414,20 @@
 	padding-bottom: 10px;
 	float: right;
 }
+
+
+.switch-on {
+  position: absolute;
+  left: -55px;
+  top: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 9px; }
+
+.switch-off {
+  position: absolute;
+  left: -25px;
+  top: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 9px; }
