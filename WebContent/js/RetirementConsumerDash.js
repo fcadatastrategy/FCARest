@@ -17,7 +17,7 @@ ConsumerApp.controller('ConsumerCtrl',function ($scope, $http,uiGridConstants) {
     // Form Options
 	$scope.formData = {
 	          absval : 0,
-	          allfactors : 'Show All Factors Considered in Choice',
+	          allfactors : 1,
 	          retstatus : 'Retirement Status'
 	    };
 	
@@ -45,7 +45,7 @@ function drawChart() {
   var absval = scope.formData.absval;
   var urlparam;
   
-  if (scope.formData.allfactors=="Show All Factors Considered in Choice" ) {
+  if (scope.formData.allfactors==1 ) {
 	  urlparam = "ALL"; 
 	  }
 	  else { 
@@ -98,7 +98,7 @@ function drawChart() {
 	}  // for	  
   }
   
-  // Create a Pivotted data set iterating over the JSON by row and column
+  // Create a Pivoted data set iterating over the JSON by row and column
   var row, col, prevrow;
   for (var z=0;z<rows.length;z++) {	  
 	  var datarow = new Array();	 
@@ -125,6 +125,8 @@ function drawChart() {
               title: 'I know my needs',
               subtitle: 'Which of the following did you honestly take account?',
           },          
+          animation : {duration:1000, easing: 'out'},
+          legend: { position:'none', alignment: 'start'},
           bars: 'horizontal', // Required for Material Bar Charts.
           axes: {
               x: {

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/foundation.css" />
 <link rel="stylesheet" href="css/ui-grid.css" />
 <link rel="stylesheet" href="css/customdashboard.css" />
+<link rel="stylesheet" href="css/jquery.sidr.light.css">
 
 <script src="js/vendor/modernizr.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -17,21 +18,41 @@
 <script src="js/foundation/foundation.js"></script>
 <script src="js/foundation/foundation.topbar.js"></script>
 <script src="js/foundation/foundation.offcanvas.js"></script>
+<script src="js/jquery.sidr.min.js"></script>
 <script src="js/RetirementConsumerDash.js"></script>
 
 <script>
 	$(document).ready(function(){
 		$(document).foundation();
+	    $('#left-menu').sidr({
+	        name: 'sidr-left',
+	        side: 'left'
+	      });
 	});
 </script>
 
 </head>
 <body>
+
+
+<!-- The sidr side navigation menu DIV -->
+	<div id="sidr-left">
+		<ul>
+			<li><a style="font-size:12px;"><img style="max-height: 100px;" src="Images/fcaconsumer.png"></img><p>Which of the following did you honestly take into account?</p></a></li>
+			<li><a style="font-size:12px;"><p>Thinking about the level of income you will need in retirement, which of these is the case for you?</p></a></li>
+			<li><a style="font-size:12px;"><p>What is the size of the pension pot you expect to have?</p></a></li>
+			<li><a style="font-size:12px;"><img style="max-height: 100px;" src="Images/fcafirms.png"></img><p>Which of the following have you received from your pension provider?</p></a></li>
+			<li><a style="font-size:12px;"><img style="max-height: 100px;" src="Images/fcaconsumer_assess.png"></img><p>Which of the following have you received from your pension provider?</p></a></li>
+		
+		</ul>
+		
+	</div>
+
 	<div class="contain-to-grid sticky">
 		<nav class ="top-bar" data-topbar role="navigation">
 			<ul class="title-area">
 				<li class="name">
-					<h1><a href="#">Retirement Income Open Market Products and Provider</a></h1>
+					<h1> <a id="left-menu" href="#left-menu"><img style="max-height: 47px;" src="Images/fcalense.png"></img>Consumer Insight Dashboard</a></h1>
 				</li>
 				<li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
 				
@@ -40,7 +61,8 @@
 				<ul class="right">
 					<li class="has-dropdown"><a href="#">Retirement</a>
 						<ul class="dropdown">
-							<li class="active"><a href="#">Product Tracker</a></li>
+						    <li class="active"><a href="#">Consumer Insight</a></li>
+							<li ><a href="RetirementProdProvider">Product Tracker</a></li>
 							<li ><a href="RetirementDash.html" >Coventional Annuity</a></li>		
 						</ul>
 					</li>	
@@ -68,37 +90,37 @@
  
   <div ng-controller="ConsumerCtrl">
 	  <div class="row" >
-			<div id="selectdiv" class="large-12 medium-12 small-12 columns" >
+			<div id="selectdiv" class="large-10 medium-10 small-10 columns" >
 				<table style="margin: 0; padding: 0; border: none">
 					<tr>
 
 					</tr>
 				</table>
-				<div id="chart_div" style="height: 500px;"></div>
+				<div id="chart_div" style="height: 430px;"></div>
 			</div>
-		</div>
 
-		<div class="row">
-			<div id="selectdiv" class="large-12 medium-12 small-12 columns">
+			<div id="selectdiv" class="large-2 medium-2 small-2 columns">
+				
 				<fieldset>
-					<legend class="GooglePaneHeader">Chart Options</legend>
-					<label class="labelclass">When Selecting A Product</label>
-					<div>
-						<label class="checkbox-inline"> 
-						<input type="radio"name="options" ng-model="formData.allfactors" ng-change="loadDataFromServer()" 
-							value="Single Most Important Factor in Choice"> Show
-							Single Most Important Factor in Choice
-						</label> 
-						<label class="checkbox-inline"> 
-						<input type="radio"
-							name="options" ng-model="formData.allfactors" ng-change="loadDataFromServer()" 
-							value="Show All Factors Considered in Choice"> Show All
-							Factors Considered in Choice&nbsp;&nbsp;
+					<legend style="font-size:14px;">Legend</legend>
+					<label style="font-size:12px;color:red;">Retired</label>
+					<label style="font-size:12px;color:blue;">Not Retired</label>
+				</fieldset>
+
+				<fieldset>
+					<legend style="font-size:14px;">Options</legend>
+
+					<div class="switch round" style="float: top,right">
+						<p style="font-size:12px;">Show All or Single Most Important Factor</p>
+						<input id="all-one" type="checkbox" name="allorone" ng-change="loadDataFromServer()" ng-model="formData.allfactors" data-ng-true-value='1' data-ng-false-value='0'> 
+						<label for="all-one">
+							<span class="switch-on">ALL</span> 
+							<span class="switch-off">ONE</span>
 						</label>
 					</div>
 
 					<div class="switch round" style="float: top,right">
-						<p class="">Show Absolute Values</p>
+						<p style="font-size:12px;">Show Absolute Values</p>
 						<input id="on-off" type="checkbox" name="absvals" ng-change="loadDataFromServer()" ng-model="formData.absval" data-ng-true-value='1' data-ng-false-value='0'> 
 						<label for="on-off">
 							<span class="switch-on">ON</span> 
@@ -106,23 +128,23 @@
 						</label>
 					</div>
 				</fieldset>
+
 			</div>
 		</div>
 
-
 	</div>
 	
-		<br></br>
 	<!-- Footer -->
 	<footer class="footer">
 		<div class="row full-width">
 			<div class="small-12 medium-4 large-4 columns"></div>
 			<div class="small-12 medium-4 large-4 columns">
-				<p class="footer">Copyright © 2015 FCA. All Rights Reserved.</p>
+				<img style="max-height: 90px;" src="Images/fcahouseview.jpg"></img>
 			</div>
 			<div class="small-6 medium-3 large-2 columns"></div>
 			<div class="small-6 medium-3 large-2 columns">
-				<img style="max-height: 60px;" src="Images/fcalogo.jpg"></img>
+				<img style="max-height: 50px;" src="Images/fcalogo.jpg"></img>
+				<p class="footer">Copyright © 2015 FCA. All Rights Reserved.</p>
 			</div>
 		</div>
 	</footer>

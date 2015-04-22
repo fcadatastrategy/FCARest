@@ -168,7 +168,6 @@ function drawChart() {
   // hardcoded new product types
   data.addRows([
      ['<table width="75" class="nodetab"><tr><td class="nodetab">New</br></br><div class="nodeproduct">0</div><div class="nodeprovider">0</div>', '', 'To be defined'],
-     ['<table width="75" class="nodetab"><tr><td class="nodetab">UFPLS</br></br><div class="nodeproduct">0</div><div class="nodeprovider">0</div>', '<table width="75" class="nodetab"><tr><td class="nodetab">New</br></br><div class="nodeproduct">0</div><div class="nodeprovider">0</div>', 'To be defined'],
      ['<table width="75" class="nodetab"><tr><td class="nodetab">Cash Based Products</br></br><div class="nodeproduct">0</div><div class="nodeprovider">0</div>', '<table width="75" class="nodetab"><tr><td class="nodetab">New</br></br><div class="nodeproduct">0</div><div class="nodeprovider">0</div>', 'To be defined'],           
   ]);
 
