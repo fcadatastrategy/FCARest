@@ -431,3 +431,15 @@
   color: white;
   font-weight: bold;
   font-size: 9px; }
+  
+.TableDataViewer{
+	font-style: normal;
+	font-size: 12px;
+/* 	word-wrap: break-word; */
+	margin: 10px;
+	border: 0;
+	padding: 6px;
+	color: #000000;
+	overflow:visible;
+}  
+  

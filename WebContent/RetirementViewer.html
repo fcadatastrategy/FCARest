@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html ng-app="ViewerApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>Retirement Income Open Market Products and Provider</title>
+
+<link rel="stylesheet" href="css/foundation.css" />
+<link rel="stylesheet" href="css/ui-grid.css" />
+<link rel="stylesheet" href="css/customdashboard.css" />
+<link rel="stylesheet" href="css/jquery.sidr.light.css">
+<link rel="stylesheet" href="css/acute.select.css" />
+
+<script src="js/vendor/modernizr.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-resource.js"></script>
+<script src="js/ui-grid-unstable.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="js/acute.select.js"></script>
+<script src="js/foundation/foundation.js"></script>
+<script src="js/foundation/foundation.topbar.js"></script>
+<script src="js/foundation/foundation.offcanvas.js"></script>
+<script src="js/jquery.sidr.min.js"></script>
+<script src="js/RetirementViewer.js"></script>
+
+
+
+</head>
+<body>
+
+	<div class="contain-to-grid sticky">
+		<nav class ="top-bar" data-topbar role="navigation">
+			<ul class="title-area">
+				<li class="name">
+					<h1> <a id="left-menu" href="#left-menu"><img style="max-height: 47px;" src="Images/fcalense.png"></img>Charging and Fees Data Viewer</a></h1>
+				</li>
+				<li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+				
+			</ul>
+			<section class="top-bar-section">
+				<ul class="right">
+					<li class="has-dropdown"><a href="#">Retirement</a>
+						<ul class="dropdown">
+						    <li class="active"><a href="#">Consumer Insight</a></li>
+							<li ><a href="RetirementProdProvider">Product Tracker</a></li>
+							<li ><a href="RetirementDash.html" >Coventional Annuity</a></li>		
+						</ul>
+					</li>	
+
+					<li class="has-dropdown"><a href="#">Media Intelligence</a>
+						<ul class="dropdown">
+							<li><a href="SearchDash.html">Retirement Media</a></li>	
+						</ul>					
+					</li>						
+					<li class="has-form">
+						<div class="row collapse" >
+							<div class="large-8 small-9 columns">
+								<input type="text" placeholder="Search Site">
+							</div>
+							<div class="large-4 small-3 columns" >
+								<button type="submit" class="alert button expand">Search</button>
+							</div>
+						</div>
+						
+					</li>
+				</ul>
+			</section>
+		</nav>
+	</div>
+ 
+  <div ng-controller="ViewerCtrl">
+  
+  	  <div class="row" >  <!-- Top Selection Bar & Core Attributes -->
+			<div id="selectdiv" class="large-12 medium-12 small-12 columns" >
+				<table style="margin: 0; padding: 0; border: none">
+					<tr>
+						<td valign="middle" class="searchtext">Product Type:- </td>
+						<td valign="middle"> 
+							<select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="pt.prodtype for pt in prodtypes" data-ng-model="selectedProdtype"></select> </td>
+							<ac-select ac-model="selectedProdtype" ac-options="pt.prodtype for pt in prodtypes" ac-change='selectionChanged(value)' ac-settings='{ loadOnOpen: true }'></select>
+						<td style="min-width:20px"></td>
+						<td valign="middle" class="searchtext">Provider:- </td>
+						<td valign="middle"> <select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="prvs.provider for prvs in providers" data-ng-model="selectedProvider"></select> </td>
+						<td style="min-width:20px"></td>
+						<td valign="middle" class="searchtext">Product:- </td>
+						<td valign="middle"> <select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="prods.product for prods in products" data-ng-model="selectedProduct"></select> </td>
+						<td style="min-width:20px"></td>
+						<td valign="middle" class="searchtext">Date:- </td>
+						<td valign="middle"> <select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="d.datadate for d in datadates" data-ng-model="selectedDate"></select> </td>
+					</tr>				
+				</table>
+			</div>
+	  </div>	
+	  
+	   <div class="row" >  
+	   		<div id="corediv" class="large-6 medium-6 small-6 columns" >   <!-- Product Options -->
+	   			<fieldset>
+					<legend style="font-size:14px; color: #800040;">Product Options
+					    <a class="tooltipIcon" href="" >
+        					<img style="max-height: 30px;" src="Images/options.png"/>
+   						</a> 					
+					</legend>
+					<table style="margin: 0; padding: 0; border: none">
+						<tr> 
+							<td class="TableDataViewer">Adviser Charging<input value="Yes" disabled="true" size="6"> <a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Initial Adviser Charging <input value="No" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>
+						<tr> 
+							<td class="TableDataViewer">Death Benefit Basis<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Income Guarantee <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>											
+					</table>	
+				</fieldset>	
+	   		</div>
+	   		
+	   		<div id="corediv" class="large-6 medium-6 small-6 columns" >  <!-- Eligibility -->
+	   			<fieldset>
+					<legend style="font-size:14px; color: #800040;">Eligibility Criteria
+					    <a class="tooltipIcon" href="" >
+        					<img style="max-height: 30px;" src="Images/eligible.png"/>
+   						</a> 	
+					</legend>
+					<table style="margin: 0; padding: 0; border: none">
+						<tr> 
+							<td class="TableDataViewer">Minimum Age <input value="60" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Maximum Age <input value="70" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>
+						<tr> 
+							<td class="TableDataViewer">Minimum Term <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>						
+					</table>
+				</fieldset>	
+	   		</div>
+	   </div>
+	    	  	
+			
+	  <div class="row" >
+	  
+			<div id="selectdiv" class="large-6 medium-6 small-6 columns" >   <!-- Setup Attributes -->
+				<fieldset>
+					<legend style="font-size:14px; color: #800040;">Setup
+						<a class="tooltipIcon" href="" >
+        					<img style="max-height: 30px;" src="Images/new.png"/>
+   						</a> 
+   					</legend>
+					<table style="margin: 0; padding: 0; border: none">
+						<tr> 
+							<td class="TableDataViewer">Max Setup Fee £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Min Setup Fee £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>
+						<tr> 
+							<td class="TableDataViewer">Max Setup Fee % <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Min Setup Fee % <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>						
+					</table>
+				</fieldset>
+			</div>
+
+			<div id="selectdiv" class="large-6 medium-6 small-6 columns">   <!-- Annual / Maintenance Attributes -->
+				<fieldset>
+					<legend style="font-size:14px; color: #800040;">Annual Management
+						<a class="tooltipIcon" href="" >
+        					<img style="max-height: 30px;" src="Images/setup.png"/>
+   						</a> 
+					</legend>
+					<table style="margin: 0; padding: 0; border: none">
+						<tr> 
+							<td class="TableDataViewer">Max Annual Fee £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Min Annual Fee £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>
+						<tr> 
+							<td class="TableDataViewer">Max Annual Fee % <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Min Annual Fee % <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>						
+					</table>
+				</fieldset>
+			</div>
+			
+		</div>  <!-- Row -->
+
+	  <div class="row" >
+			<div id="selectdiv" class="large-6 medium-6 small-6 columns" >
+				<fieldset>
+					<legend style="font-size:14px; color: #800040;">Transfers
+						<a class="tooltipIcon" href="" >
+        					<img style="max-height: 30px;" src="Images/transfers.png"/>
+   						</a> 
+					</legend>
+					<table style="margin: 0; padding: 0; border: none">
+						<tr> 
+							<td class="TableDataViewer">Max Transfer In Fee £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Min Transfer In Fee £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>
+						<tr> 
+							<td class="TableDataViewer">Max In Specie Transfer £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Min In Specie Transfer £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>						
+						<tr> 
+							<td class="TableDataViewer">Max Transfer Out £<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Min Transfer Out £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>	
+						<tr> 
+							<td class="TableDataViewer">Closure Fee £<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Closure Fee % <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>													
+					</table>	
+				</fieldset>			
+			</div>
+			
+			<div id="selectdiv" class="large-6 medium-6 small-6 columns" >
+				<fieldset>
+					<legend style="font-size:14px; color: #800040;">Income 
+						    <a class="tooltipIcon" href="" >
+        						<img style="max-height: 30px;" src="Images/drawdown.png"/>
+   							 </a> 
+					</legend>	
+					<table style="margin: 0; padding: 0; border: none">
+						<tr style="font-size:12px;"> 
+							<td  class="TableDataViewer">Fad Setup Fee Max £<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td  class="TableDataViewer"> Fad Setup Fee Min £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>
+						<tr> 
+							<td class="TableDataViewer">Fad Review Fee Max £<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td  class="TableDataViewer">Fad Review Fee Min £<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>						
+						<tr> 
+							<td class="TableDataViewer">Fad Income Fee Max £<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td  class="TableDataViewer">Fad Ad-hoc Inc Fee £<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>
+						<tr> 
+							<td  class="TableDataViewer">Fad No Income Fee £<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>	
+						<tr> 
+							<td  class="TableDataViewer">Fad Payment Frequency<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>							
+						<tr> 
+							<td  class="TableDataViewer">UFPLS Fee £<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>																			
+					</table>										
+					<div class="switch round" style="float: top, right">
+						<p style="font-size:12px;">Income Drawdown Type (Capped or Flexi)
+						<input style="float: bottom" id="on-off" type="checkbox" name="absvals" ng-change="loadDataFromServer()" ng-model="formData.absval" data-ng-true-value='1' data-ng-false-value='0'> 
+						<label for="on-off">
+							<span class="switch-on">CAP</span> 
+							<span class="switch-off">FAD</span>
+						</label>
+						</p>
+					</div>					
+				</fieldset>
+			</div>
+	</div>			
+	
+	  <div class="row" >   
+			<div id="selectdiv" class="large-12 medium-12 small-12 columns" >  <!-- Investment Complexity -->
+				<fieldset>
+					<legend style="font-size:14px; color: #800040;">Investment Complexity
+					    <a class="tooltipIcon" href="" >
+        					<img style="max-height: 30px;" src="Images/complex.png"/>
+   						</a> 					
+					</legend>
+					<table style="margin: 0; padding: 0; border: none">
+						<tr> 
+							<td class="TableDataViewer">Multi Owned Property<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> EPUT <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Hedge Funds <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> UCIS <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Commerical Property<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+						</tr>						
+						<tr> 
+							<td class="TableDataViewer">Unlisted Unquoted Shares<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">CFDS <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">REIT<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Leasehold Property<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Third Party Lending<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>							
+						</tr>		
+						<tr> 
+							<td class="TableDataViewer">Futures Options<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Structured Product Notes <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">UK Stocks and Shares<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Unit Trusts OEICS Links<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Insured UL Funds<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>							
+						</tr>		
+						<tr> 
+							<td class="TableDataViewer">Investment Trusts<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Exchange Traded Funds<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Traded Endowments<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Deposits<input value="NS" disabled="true" size="40"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>						
+						</tr>	
+						<tr> 
+							<td class="TableDataViewer">Overseas Stocks<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Offshore Mutual Funds<input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>					
+						</tr>																						
+					</table>	
+				</fieldset>		
+			</div>
+	</div>						<!-- Row -->
+		
+	</div>  <!-- Angular Controller -->
+	
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="row full-width">
+			<div class="small-12 medium-4 large-4 columns"></div>
+			<div class="small-12 medium-4 large-4 columns">
+				<img style="max-height: 90px;" src="Images/fcahouseview.jpg"></img>
+			</div>
+			<div class="small-6 medium-3 large-2 columns"></div>
+			<div class="small-6 medium-3 large-2 columns">
+				<img style="max-height: 50px;" src="Images/fcalogo.jpg"></img>
+				<p class="footer">Copyright © 2015 FCA. All Rights Reserved.</p>
+			</div>
+		</div>
+	</footer>
+	
+</body>
+</html>
