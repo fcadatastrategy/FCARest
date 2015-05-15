@@ -1462,7 +1462,7 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
   font-size: 0.875rem;
   margin: 0 0 1rem 0;
   padding: 0.5rem;
-  height: 2.3125rem;
+  height: 2.0125rem;
   width: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -5215,7 +5215,7 @@ ul.off-canvas-list {
     .f-dropdown.mega.open {
       left: 0 !important; }
 
-table {
+/* table {
   background: #FFFFFF;
   margin-bottom: 1.25rem;
   border: solid 1px #DDDDDD;
@@ -5256,7 +5256,7 @@ table {
   table tbody tr td,
   table tr td {
     display: table-cell;
-    line-height: 1.125rem; }
+    line-height: 1.125rem; } */
 
 .range-slider {
   position: relative;

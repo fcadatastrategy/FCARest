@@ -441,5 +441,21 @@
 	padding: 6px;
 	color: #000000;
 	overflow:visible;
+ 	cursor: pointer; 
+ 	cursor: hand;
+ 	hover : red;
 }  
+
+.TableDataViewer:hover
+{
+  font-style: bold;		 
+  color:red;
+}
+
+/* 	Overide for foundation font size settings */
+li {
+	font-style: normal;
+	font-size: 12px;	
+}
+
   

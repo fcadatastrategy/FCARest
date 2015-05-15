@@ -4,11 +4,12 @@
 <meta charset="ISO-8859-1">
 <title>Retirement Income Open Market Products and Provider</title>
 
-<link rel="stylesheet" href="css/foundation.css" />
+<link rel="stylesheet" href="css/acute.select.css" /> 
+<link rel="stylesheet" href="css/foundation.css" />  
 <link rel="stylesheet" href="css/ui-grid.css" />
 <link rel="stylesheet" href="css/customdashboard.css" />
 <link rel="stylesheet" href="css/jquery.sidr.light.css">
-<link rel="stylesheet" href="css/acute.select.css" />
+
 
 <script src="js/vendor/modernizr.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -16,7 +17,7 @@
 <script src="js/angular-resource.js"></script>
 <script src="js/ui-grid-unstable.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="js/acute.select.js"></script>
+<script type="text/javascript" src="js/acute/acute.select/acute.select.js"></script>
 <script src="js/foundation/foundation.js"></script>
 <script src="js/foundation/foundation.topbar.js"></script>
 <script src="js/foundation/foundation.offcanvas.js"></script>
@@ -75,18 +76,31 @@
 				<table style="margin: 0; padding: 0; border: none">
 					<tr>
 						<td valign="middle" class="searchtext">Product Type:- </td>
-						<td valign="middle"> 
-							<select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="pt.prodtype for pt in prodtypes" data-ng-model="selectedProdtype"></select> </td>
-							<ac-select ac-model="selectedProdtype" ac-options="pt.prodtype for pt in prodtypes" ac-change='selectionChanged(value)' ac-settings='{ loadOnOpen: true }'></select>
-						<td style="min-width:20px"></td>
+						<td valign="middle">  										
+ 							<select class="ac-select acselecttext" ac-model="selectedProdtype" ac-options="pt.prodtype for pt in getProdTypes()" 
+        							ac-settings="{ loadOnOpen: true, minWidth: '130px' }" ac-change="prodtypeChanged(value)"></select>			 
+ 						</td>						
+ 						<td style="min-width:20px"></td>
 						<td valign="middle" class="searchtext">Provider:- </td>
-						<td valign="middle"> <select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="prvs.provider for prvs in providers" data-ng-model="selectedProvider"></select> </td>
+						<td valign="middle"> 
+							<select class="ac-select acselecttext" ac-model="selectedProvider" ac-options="prvs.provider for prvs in getProviders()" 
+        							ac-settings="{ loadOnOpen: true, minWidth: '150px' }" ac-change="providerChanged(value)">		 
+ 							</select> 
+						</td>
 						<td style="min-width:20px"></td>
 						<td valign="middle" class="searchtext">Product:- </td>
-						<td valign="middle"> <select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="prods.product for prods in products" data-ng-model="selectedProduct"></select> </td>
+						<td valign="middle"> 
+							<select class="ac-select acselecttext" ac-model="selectedProduct" ac-options="prods.product for prods in getProducts()" 
+        							ac-settings="{ loadOnOpen: true, minWidth: '150px' }" ac-change="productChanged(value)">			 
+ 							</select> 
+						</td>						
 						<td style="min-width:20px"></td>
 						<td valign="middle" class="searchtext">Date:- </td>
-						<td valign="middle"> <select class="dropdownselect" ng-change="loadDataFromServer()" data-ng-options="d.datadate for d in datadates" data-ng-model="selectedDate"></select> </td>
+						<td valign="middle"> 						
+							<select class="ac-select acselecttext" ac-model="selectedDate" ac-options="d.datadate for d in datadates" 
+        							ac-settings="{ loadOnOpen: true, minWidth: '150px' }" ac-change="dateChanged(value)">		 
+ 							</select>  												
+						</td>
 					</tr>				
 				</table>
 			</div>
@@ -102,7 +116,7 @@
 					</legend>
 					<table style="margin: 0; padding: 0; border: none">
 						<tr> 
-							<td class="TableDataViewer">Adviser Charging<input value="Yes" disabled="true" size="6"> <a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer" title="This is a more detailed descripton from the data dictionary">Adviser Charging<input value="Yes" disabled="true" size="6"> <a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
 							<td class="TableDataViewer"> Initial Adviser Charging <input value="No" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
 						</tr>
 						<tr> 
@@ -145,8 +159,8 @@
    					</legend>
 					<table style="margin: 0; padding: 0; border: none">
 						<tr> 
-							<td class="TableDataViewer">Max Setup Fee £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
-							<td class="TableDataViewer"> Min Setup Fee £ <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer">Max Setup Fee £ <input value="100" style="color:red;"  disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
+							<td class="TableDataViewer"> Min Setup Fee £ <input value="50" style="color:green;" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
 						</tr>
 						<tr> 
 							<td class="TableDataViewer">Max Setup Fee % <input value="NS" disabled="true" size="6"><a class="tooltipIcon" href="" ><img style="max-height: 15px;" src="Images/brochuretext.png"/></a> </td>
