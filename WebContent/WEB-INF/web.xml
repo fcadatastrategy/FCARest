@@ -73,6 +73,24 @@
   	<servlet-name>RestConsumer</servlet-name>
   	<url-pattern>/consumer/*</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+  	<servlet-name>RestViewer</servlet-name>
+  	<servlet-class>com.sun.jersey.server.impl.container.servlet.ServletAdaptor</servlet-class>
+  	<init-param>
+  	  <param-name>com.sun.jersey.config.property.packages</param-name>
+  	  <param-value>com.fca.firmproductviewer</param-value>
+  	</init-param>
+  	<init-param>
+  	  <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+  	  <param-value>true</param-value>
+  	</init-param>  	
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RestViewer</servlet-name>
+  	<url-pattern>/viewer/*</url-pattern>
+  </servlet-mapping> 
     
   <filter>
   <filter-name>CorsFilter</filter-name>
