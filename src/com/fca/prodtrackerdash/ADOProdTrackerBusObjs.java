@@ -22,7 +22,6 @@ public class ADOProdTrackerBusObjs {
 	    dataDate = parts[0];
 	    compDate = parts[1];
 		
-//		String sql = "SELECT * FROM table(fca_ds_rpt.pck_gen_dashboard_export.gen_product_tracker_dash('" + dataDate.toUpperCase() + "'))";
 		String sql = "SELECT * FROM table(fca_ds_rpt.pck_ret_prod_tracker.gen_product_tracker_dash('" + dataDate.toUpperCase() + "','" + compDate.toUpperCase() + "'))";
 
 		try {
