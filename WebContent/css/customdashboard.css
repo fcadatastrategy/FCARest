@@ -162,6 +162,10 @@
   .largeCustomGrid {
     height: 300px;
     }  
+
+  .FirmViewCustomGrid {
+    height: 420px;
+    }  
     
 .active {
         background-color: #f90;

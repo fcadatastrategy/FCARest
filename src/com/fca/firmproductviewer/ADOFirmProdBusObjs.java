@@ -18,12 +18,14 @@ public class ADOFirmProdBusObjs {
 		
 	    String dataDate;
 	    String market;
+	    String firmType;
 	    
 	    String[] parts = dataSelections.split("&");
 	    dataDate = parts[0];
 	    market = parts[1];
+	    firmType = parts[2];
 		
-		String sql = "SELECT * FROM table(fca_ds_rpt.pck_firm_product_viewer.gen_firm_view('" + dataDate.toUpperCase() + "','" + market.toUpperCase() + "','NA'))";
+		String sql = "SELECT * FROM table(fca_ds_rpt.pck_firm_product_viewer.gen_firm_view('" + dataDate.toUpperCase() + "','" + market.toUpperCase() + "','" + firmType.toUpperCase() + "'))";
 	
 		try {
 			c = SQLConnection.getConnection();
@@ -50,7 +52,7 @@ public class ADOFirmProdBusObjs {
 		firm.setFirmMarket(rs.getString("FIRM_MARKET"));
 		firm.setFirmType(rs.getString("FIRM_TYPE"));
 		firm.setFirmDataDate(rs.getString("FIRM_DATA_DATE"));
-		firm.setFirmDataDate(rs.getString("FIRM_PRODUCT_COUNT"));
+		firm.setFIrmProductCount(rs.getInt("FIRM_PRODUCT_COUNT"));
 		
 		return firm;
 	}
