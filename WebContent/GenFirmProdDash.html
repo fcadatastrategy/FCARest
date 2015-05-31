@@ -86,7 +86,17 @@
 				</table>
 			</div> 
 		</div>  <!-- Selection Row -->
-				
+		
+		<!-- Loading Div -->
+		<div  class="row" ng-show="loading" class="loading">
+			<div  class="large-6 medium-6 small-6 columns"> 
+			<table class="" style="margin: 0; padding: 0; border: none; width: 100%;">
+					<tr><td><img src="Images/Loading.gif"></td></tr>
+					<tr><td>Data Loading</td></tr>
+			</table>
+			</div>
+		</div>	
+		
 		<div class="row">
 			<div  class="large-6 medium-6 small-6 columns" ng-if="hideGrid.grid==true" >
 				<table class="callout panel" style="margin: 0; padding: 0; border: none; width: 100%;">
@@ -96,6 +106,7 @@
 						</th>
 					</tr>
 				</table>
+				
 				<div  ui-grid="gridOptions" class="FirmViewCustomGrid" ui-grid-resize-columns ui-grid-exporter ui-grid-pagination></div>
 				<table class="PageTable">
 					<tr class="PageTable">

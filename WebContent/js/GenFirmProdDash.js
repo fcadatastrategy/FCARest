@@ -96,11 +96,16 @@ ProviderApp.controller('FirmProductCtrl',function ($scope, $http,uiGridConstants
 			var url = "/FCARest/viewer/viewer/firm/" + $scope.selectedDate.datadate+ "&" + $scope.selectedSector.sector + "&" + $scope.selectedFirmType.firmtype ;
 			//console.log(url);
 			
+			$scope.loading = true;
+			$scope.hideGrid = {grid: false};
+			
 			$http.get(url).success(function(data)  {							
-				$scope.gridOptions.data = data;				
+				$scope.gridOptions.data = data;	
+				$scope.loading = false;
+				$scope.hideGrid = {grid: true};
 			});	
 			
-			 $scope.hideGrid = {grid: true};
+			
 		} // if	
 	  }; // loadDataGrid function	    
 	  
