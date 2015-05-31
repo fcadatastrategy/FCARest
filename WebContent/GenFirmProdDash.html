@@ -12,7 +12,7 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="js/angular.min.js"></script>
 <script src="js/angular-resource.js"></script>
-<script src="js/ui-grid-unstable.js"></script>
+<script src="js/ui-grid.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script src="js/foundation/foundation.js"></script>
 <script src="js/foundation/foundation.topbar.js"></script>
@@ -67,7 +67,7 @@
 		</nav>
 	</div>
  
-  <div ng-controller="FirmProductCtrl">
+  <div ng-controller="FirmAppCtrl">
 	  <div class="row" >
 	  
 			<div id="selectdiv" class="large-12 medium-12 small-12 columns" >
@@ -107,7 +107,7 @@
 					</tr>
 				</table>
 				
-				<div  ui-grid="gridOptions" class="FirmViewCustomGrid" ui-grid-resize-columns ui-grid-exporter ui-grid-pagination></div>
+				<div  ui-grid="gridOptions" class="FirmViewCustomGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter ui-grid-pagination></div>
 				<table class="PageTable">
 					<tr class="PageTable">
 						<td class="TableHeader">Current Page:

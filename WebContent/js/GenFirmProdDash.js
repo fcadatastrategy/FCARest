@@ -1,9 +1,8 @@
-var ProviderApp = angular.module('FirmApp', ['ui.grid','ui.grid.resizeColumns','ui.grid.pagination','ngResource','ui.grid.selection','ui.grid.exporter']);  // note you can add multiple injectors ['ui.grid','blah']
+var FirmApp = angular.module('FirmApp', ['ui.grid','ui.grid.selection','ui.grid.resizeColumns','ui.grid.pagination','ngResource','ui.grid.exporter']);  // note you can add multiple injectors ['ui.grid','blah']
 
-
-
-ProviderApp.controller('FirmProductCtrl',function ($scope, $http,uiGridConstants) {
+FirmApp.controller('FirmAppCtrl',function ($scope, $http,uiGridConstants) {
 	
+//FirmApp.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', function ($scope, $http, $log, $timeout, uiGridConstants) {
 	 
 	 $scope.columns =[{ field: 'firmName', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Firm'},
 	                  { field: 'firmProductCount', cellClass: 'TableCell', headerCellClass: 'TableHeader', displayName: 'Product Count', enableFiltering:false},
@@ -11,6 +10,10 @@ ProviderApp.controller('FirmProductCtrl',function ($scope, $http,uiGridConstants
 	 
 	 $scope.gridOptions = {
 			 enableSorting: true,
+		        enableRowSelection: true,
+		        enableRowHeaderSelection: false,
+		        modifierKeysToMultiSelect: true,
+		     selectionRowHeaderWidth: 35,
 			 enablePaginationControls: false,
 			 paginationPageSizes: [20,40,60],
 			 paginationPageSize: 20,
@@ -19,21 +22,31 @@ ProviderApp.controller('FirmProductCtrl',function ($scope, $http,uiGridConstants
 			 enableScrollbars: false, 
 			 rowHeight: 22,
 			 columnDefs: $scope.columns,
-			 exporterCsvFilename: 'firms.csv'
+			 exporterCsvFilename: 'firms.csv'	 		 
 	 };
 	 
 	 $scope.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER;
 	 $scope.gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.NEVER;
 	 
+	 
 	$scope.gridOptions.onRegisterApi = function (gridApi) {
 			 $scope.gridApi = gridApi;
-	 };
-	
 			 
-	 $scope.hideGrid = {
-			  grid: false
-			};
+			 gridApi.selection.on.rowSelectionChanged($scope,function(row){
+				 var msg = 'row selected ' + row.isSelected;
+				 $scope.mySelections = gridApi.selection.getSelectedRows();
+				 console.log($scope.mySelections);
+				 alert($scope.mySelections[0]);
+				 console.log($scope.mySelections[0]);
+			 	 });
+			 
+	 };
 	 
+	 //$scope.gridApi.selection.on.rowSelectionChanged($scope,function(rows){
+     //	$scope.mySelections = gridApi.selection.getSelectedRows();
+  // });			 
+	 
+	 $scope.hideGrid = {grid: false};
 	 
 	 $scope.refreshSelections = function() {
 			// Load Sectors
