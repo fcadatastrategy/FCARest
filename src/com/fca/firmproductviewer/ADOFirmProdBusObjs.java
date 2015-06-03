@@ -91,4 +91,48 @@ public class ADOFirmProdBusObjs {
 		return firmproddates;
 	}
 
+	public List<JSONProduct> findProductByFirm(String dataSelections) {
+
+		List<JSONProduct> list = new ArrayList<JSONProduct>();
+		Connection c = null;
+		
+		String dataDate, market, firmName, firmType, firmId;
+		
+	    String[] parts = dataSelections.split("&");
+	    dataDate = parts[0];
+	    market = parts[1];
+	    firmName = parts[2];
+	    firmType = parts[3];
+	    firmId  = parts[4];	    
+	    	      
+		String sql = "SELECT * FROM table(fca_ds_rpt.pck_firm_product_viewer.gen_get_product('" + dataDate + "','" + firmName + "','" + firmType + "','" + market + "','"  + firmId + "'))";
+		
+		try {
+			c = SQLConnection.getConnection();
+			Statement s = c.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			while (rs.next()) {
+				list.add(processProducts(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			SQLConnection.close(c);
+		}
+		return list;
+	}
+
+	protected JSONProduct processProducts(ResultSet rs)
+			throws SQLException {
+		JSONProduct products = new JSONProduct();
+
+		products.setProductId(rs.getString("PRODUCT_ID"));
+		products.setProductBK(rs.getString("PRODUCT_BK"));
+		products.setProductName(rs.getString("PRODUCT_NAME"));		
+
+		return products;
+	}
+	
+	
 }

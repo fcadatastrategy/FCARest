@@ -462,4 +462,30 @@ li {
 	font-size: 12px;	
 }
 
+.SelectableTableCell{
+	font-style: normal;
+	font-size: 12px;
+/* 	word-wrap: break-word; */
+	margin: 0;
+	border: 0;
+	padding: 0;
+	color: #000000;
+	font-family: lato;
+	overflow:visible;
+	cursor: pointer; 
+ 	cursor: hand;
+ 	hover : red;
+}
+
+.SelectableTableCell:hover
+{
+  font-style: bold;		 
+  color:red;
+  background-color: blue;
+}
+
+
+
+
+
   

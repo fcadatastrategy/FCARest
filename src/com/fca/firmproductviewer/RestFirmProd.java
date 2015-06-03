@@ -25,4 +25,11 @@ public class RestFirmProd {
 		return adoFirmProd.findAllDatesByMarket(marketDate);
 	}
 	
+	@GET
+	@Path("/products/{dataSelections}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<JSONProduct> findProductByFirm(@PathParam("dataSelections") String dataSelections) {
+		return adoFirmProd.findProductByFirm(dataSelections);
+	}	
+	
 }

@@ -77,10 +77,10 @@
 						<td valign="middle" > <select style="min-width:165px" class="dropdownselect" ng-change="loadDatesFromServer()" data-ng-options="s.sector for s in sectors" data-ng-model="selectedSector"></select> </td>
 						<td style="min-width:60px"></td>
 						<td valign="middle" class="searchtext">Select Date:- </td>
-						<td valign="middle"> <select style="min-width:145px" class="dropdownselect" ng-change="loadDataGrid()" data-ng-options="d.datadate for d in datadates" data-ng-model="selectedDate"></select> </td>
+						<td valign="middle"> <select style="min-width:145px" class="dropdownselect" ng-disabled="isDisabled" ng-change="loadDataGrid()" data-ng-options="d.datadate for d in datadates" data-ng-model="selectedDate"></select> </td>
 						<td style="min-width:60px"></td>
 						<td valign="middle" class="searchtext">Select Firm Type:- </td>
-						<td valign="middle"> <select style="min-width:170px" class="dropdownselect" ng-change="loadDataGrid()" data-ng-options="f.firmtype for f in firmtypes" data-ng-model="selectedFirmType"></select> </td>
+						<td valign="middle"> <select style="min-width:170px" class="dropdownselect" ng-disabled="isDisabled" ng-change="loadDataGrid()" data-ng-options="f.firmtype for f in firmtypes" data-ng-model="selectedFirmType"></select> </td>
 						<td style="min-width:10px"></td>
 					</tr>
 				</table>
@@ -121,6 +121,33 @@
 						</td>
 					</tr>
 				</table>
+				
+				
+			</div>
+			
+				<div  class="large-6 medium-6 small-6 columns" ng-if="hideProductGrid.grid==true" >
+    			<table class="callout panel" style="margin: 0; padding: 0; border: none; width: 100%;">
+					<tr>
+ 						<th>{{$scope.mySelections[0].firmName}}  Products On {{selectedDate.datadate}}  
+							<button class="exportcsv" ng-click="export()"></button>
+						</th>
+					</tr>
+				</table>   
+				
+				<div  ui-grid="ProductGridOptions" class="FirmViewCustomGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter ui-grid-pagination></div>
+				<table class="PageTable">
+					<tr class="PageTable">
+						<td class="TableHeader">Current Page:
+							{{ProductGridApi.pagination.getPage()}} of
+							{{ProductGridApi.pagination.getTotalPages()}}</td>
+						<td>
+							<button type="button" class="backpageButton"
+								ng-click="ProductGridApi.pagination.previousPage()"></button>
+							<button type="button" class="nextpageButton"
+								ng-click="ProductGridApi.pagination.nextPage()"></button>
+						</td>
+					</tr>
+				</table> 
 				
 				
 			</div>
